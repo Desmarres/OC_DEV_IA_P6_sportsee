@@ -1,0 +1,14 @@
+.pageContainer {
+    position: relative;
+    height: 60vh;
+    color: var(--secondary-color-100);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+}
+
+.pageContainer a {
+    color: var(--primary-color-100);
+}

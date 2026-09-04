@@ -1,0 +1,42 @@
+:root {
+    /* Couleurs de base */
+    --primary-color: #0B23F4;
+    --secondary-color: #F4320B;
+    --tertiary-color: #111111;
+
+    /* Primary */
+    --primary-color-10: color-mix(in srgb, var(--primary-color) 10%, transparent);
+    --primary-color-20: color-mix(in srgb, var(--primary-color) 20%, transparent);
+    --primary-color-30: color-mix(in srgb, var(--primary-color) 30%, transparent);
+    --primary-color-40: color-mix(in srgb, var(--primary-color) 40%, transparent);
+    --primary-color-50: color-mix(in srgb, var(--primary-color) 50%, transparent);
+    --primary-color-60: color-mix(in srgb, var(--primary-color) 60%, transparent);
+    --primary-color-70: color-mix(in srgb, var(--primary-color) 70%, transparent);
+    --primary-color-80: color-mix(in srgb, var(--primary-color) 80%, transparent);
+    --primary-color-90: color-mix(in srgb, var(--primary-color) 90%, transparent);
+    --primary-color-100: var(--primary-color);
+
+    /* Secondary */
+    --secondary-color-10: color-mix(in srgb, var(--secondary-color) 10%, transparent);
+    --secondary-color-20: color-mix(in srgb, var(--secondary-color) 20%, transparent);
+    --secondary-color-30: color-mix(in srgb, var(--secondary-color) 30%, transparent);
+    --secondary-color-40: color-mix(in srgb, var(--secondary-color) 40%, transparent);
+    --secondary-color-50: color-mix(in srgb, var(--secondary-color) 50%, transparent);
+    --secondary-color-60: color-mix(in srgb, var(--secondary-color) 60%, transparent);
+    --secondary-color-70: color-mix(in srgb, var(--secondary-color) 70%, transparent);
+    --secondary-color-80: color-mix(in srgb, var(--secondary-color) 80%, transparent);
+    --secondary-color-90: color-mix(in srgb, var(--secondary-color) 90%, transparent);
+    --secondary-color-100: var(--secondary-color);
+
+    /* Tertiary */
+    --tertiary-color-10: color-mix(in srgb, var(--tertiary-color) 10%, transparent);
+    --tertiary-color-20: color-mix(in srgb, var(--tertiary-color) 20%, transparent);
+    --tertiary-color-30: color-mix(in srgb, var(--tertiary-color) 30%, transparent);
+    --tertiary-color-40: color-mix(in srgb, var(--tertiary-color) 40%, transparent);
+    --tertiary-color-50: color-mix(in srgb, var(--tertiary-color) 50%, transparent);
+    --tertiary-color-60: color-mix(in srgb, var(--tertiary-color) 60%, transparent);
+    --tertiary-color-70: color-mix(in srgb, var(--tertiary-color) 70%, transparent);
+    --tertiary-color-80: color-mix(in srgb, var(--tertiary-color) 80%, transparent);
+    --tertiary-color-90: color-mix(in srgb, var(--tertiary-color) 90%, transparent);
+    --tertiary-color-100: var(--tertiary-color);
+}
