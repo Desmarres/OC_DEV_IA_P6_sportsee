@@ -1,0 +1,17 @@
+.conversationContainer {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 52px;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    gap: 16px;
+    color: var(--primary-color-100);
+}
+
+.conversation {
+    display: flex;
+    gap: 16px;
+}

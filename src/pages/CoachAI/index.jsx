@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styles from "@/styles/CoachAI.module.css";
+import styles from "./CoachAI.module.css";
 import useRequireAuth from "@/hooks/useRequireAuth";
 import { AuthStatus } from "@/context/AuthContext";
 

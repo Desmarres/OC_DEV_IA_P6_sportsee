@@ -39,9 +39,11 @@ export default function useUserActivity(startWeek, endWeek) {
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(
+                    const error = new Error(
                         "Impossible de récupérer les informations sur l'activité"
                     );
+                    error.status = response.status;
+                    throw error;
                 }
                 return response.json();
             })
@@ -54,11 +56,11 @@ export default function useUserActivity(startWeek, endWeek) {
             })
             .catch(error => {
                 if (error.name === "AbortError") return;
-
+                console.log(error)
                 setResult({
                     key: requestKey,
                     data: [],
-                    error: error.message,
+                    error: error,
                 });
             });
         return () => controller.abort();

@@ -1,8 +1,8 @@
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import Image from 'next/image';
-import styles from '@/styles/Footer.module.css';
-import useAuth, { AuthStatus } from '@/context/AuthContext';
+import { useRouter } from "next/router";
+import Link from "next/link";
+import Image from "next/image";
+import styles from "./Footer.module.css";
+import useAuth, { AuthStatus } from "@/context/AuthContext";
 
 export default function Footer() {
     const router = useRouter();

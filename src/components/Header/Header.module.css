@@ -1,16 +1,22 @@
 .nav {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     width: 1440px;
+    padding: 0 100px;
     margin: 0 auto;
     height: var(--header-height);
     z-index: 10;
-    background: transparent;
-    margin-top: 20px;
+    background-color: #E7E9FE;
+}
+
+.navWithMenu {
+    width: 1140px;
+    padding: 0;
 }
 
 .menuContainer {

@@ -1,0 +1,110 @@
+.loaderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    height: 70vh;
+}
+
+@keyframes spin-color {
+
+    0%,
+    9.9% {
+        stroke: var(--primary-color-100);
+    }
+
+    10%,
+    19.9% {
+        stroke: var(--primary-color-90);
+    }
+
+    20%,
+    29.9% {
+        stroke: var(--primary-color-80);
+    }
+
+    30%,
+    39.9% {
+        stroke: var(--primary-color-70);
+    }
+
+    40%,
+    49.9% {
+        stroke: var(--primary-color-60);
+    }
+
+    50%,
+    59.9% {
+        stroke: var(--primary-color-50);
+    }
+
+    60%,
+    69.9% {
+        stroke: var(--primary-color-40);
+    }
+
+    70%,
+    79.9% {
+        stroke: var(--primary-color-30);
+    }
+
+    80%,
+    89.9% {
+        stroke: var(--primary-color-20);
+    }
+
+    90%,
+    100% {
+        stroke: var(--primary-color-10);
+    }
+}
+
+.loader {
+    width: 60px;
+    height: 60px;
+    --loader-duration: 1500ms
+}
+
+.bar {
+    animation: spin-color var(--loader-duration) linear infinite;
+}
+
+.bar:nth-of-type(1) {
+    animation-delay: 0ms;
+}
+
+.bar:nth-of-type(2) {
+    animation-delay: calc(var(--loader-duration) * 1 / 10);
+}
+
+.bar:nth-of-type(3) {
+    animation-delay: calc(var(--loader-duration) * 2 / 10);
+}
+
+.bar:nth-of-type(4) {
+    animation-delay: calc(var(--loader-duration) * 3 / 10);
+}
+
+.bar:nth-of-type(5) {
+    animation-delay: calc(var(--loader-duration) * 4 / 10);
+}
+
+.bar:nth-of-type(6) {
+    animation-delay: calc(var(--loader-duration) * 5 / 10);
+}
+
+.bar:nth-of-type(7) {
+    animation-delay: calc(var(--loader-duration) * 6 / 10);
+}
+
+.bar:nth-of-type(8) {
+    animation-delay: calc(var(--loader-duration) * 7 / 10);
+}
+
+.bar:nth-of-type(9) {
+    animation-delay: calc(var(--loader-duration) * 8 / 10);
+}
+
+.bar:nth-of-type(10) {
+    animation-delay: calc(var(--loader-duration) * 9 / 10);
+}

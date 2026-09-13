@@ -1,0 +1,10 @@
+.lastPerformance {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.chart {
+    display: flex;
+    gap: 20px;
+}

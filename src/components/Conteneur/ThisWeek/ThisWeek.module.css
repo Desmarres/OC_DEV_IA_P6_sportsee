@@ -1,0 +1,100 @@
+.weeklyRun,
+.activityDuration,
+.activityDistance {
+    padding: 16px 40px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.thisWeek {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.headerThisWeek {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.headerThisWeek p {
+    color: var(--tertiary-color-60);
+}
+
+.thisWeekContainer {
+    display: flex;
+    gap: 30px;
+    height: 342px;
+}
+
+.weeklyRun {
+    width: 45%;
+    height: 342px;
+    gap: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.activitytarget {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 100%;
+    height: 97px;
+    padding-bottom: 32px;
+}
+
+.activitytarget p {
+    padding: 5px 0;
+}
+
+.activityTargetBarChart {
+    width: 85%;
+    height: 190px;
+}
+
+.statsResumes {
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+    width: 55%;
+}
+
+.activityDuration,
+.activityDistance {
+    height: 104px;
+    gap: 19px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.statsResumes h3,
+.weeklyRun h3 {
+    color: var(--tertiary-color-60);
+}
+
+.activityDuration span,
+.weeklyRun span {
+    color: var(--primary-color-100);
+}
+
+.activityDuration p,
+.weeklyRun p {
+    color: var(--primary-color-30);
+}
+
+.activityDistance span {
+    color: var(--secondary-color-100);
+}
+
+.activityDistance p {
+    color: var(--secondary-color-30);
+}
+
+.activityTargetBarChart p {
+    color: var(--tertiary-color-60);
+}

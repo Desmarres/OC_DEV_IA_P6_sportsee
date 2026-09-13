@@ -1,8 +1,8 @@
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import Image from 'next/image';
-import styles from '@/styles/Header.module.css';
-import useAuth, { AuthStatus } from '@/context/AuthContext';
+import { useRouter } from "next/router";
+import Link from "next/link";
+import Image from "next/image";
+import styles from "./Header.module.css";
+import useAuth, { AuthStatus } from "@/context/AuthContext";
 
 /**
  * Affiche l'en-tête de navigation de l'application.
@@ -27,7 +27,7 @@ export default function Header() {
 
     return (
         <header>
-            <nav className={styles.nav}>
+            <nav className={styles.nav + (showMenu ? ` ${styles.navWithMenu}` : '')}>
                 <Link href="/">
                     <Image
                         src="/logo.svg"

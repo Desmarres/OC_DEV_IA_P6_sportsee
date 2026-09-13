@@ -1,5 +1,5 @@
 import Header from "@/components/Header/Header";
-import Footer from "../Footer/Footer";
+import Footer from "@/components/Footer/Footer";
 
 /**
  * Définit la structure principale des pages de l'application.

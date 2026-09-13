@@ -1,0 +1,19 @@
+.globalDistance {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 18px;
+    height: 90px;
+}
+
+.blueBlock {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 28px 27px;
+    gap: 19px;
+    border-radius: 10px;
+    border-width: 1px;
+    background-color: var(--primary-color-100);
+    color: #E7E7E7;
+}

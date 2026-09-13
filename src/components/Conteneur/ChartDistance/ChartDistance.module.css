@@ -1,0 +1,12 @@
+.chartDistance {
+    padding: 16px 40px;
+    border-radius: 10px;
+    background-color: white;
+    height: 484px;
+    width: 45%;
+}
+
+.kilometreBarChart {
+    height: 350px;
+    margin-top: 40px;
+}

@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
+import BlueButton from "@/components/BlueButton/BlueButton";
 
 /**
  * Affiche la page d'accueil et le formulaire de connexion de l'application Sportsee.
@@ -63,13 +64,13 @@ export default function Home() {
               <h2 className="heading-4">Se connecter</h2>
               <div className={styles.formInput}>
                 <label className="body-default" htmlFor="username">Adresse email</label>
-                <input className="body-default" value="sophiemartin" type="text" id="username" name="username" {...register("username")} />
+                <input className="body-default" type="text" id="username" name="username" {...register("username")} />
               </div>
               <div className={styles.formInput}>
                 <label className="body-default" htmlFor="password">Mot de passe</label>
-                <input className="body-default" value="password123" type="password" id="password" name="password" {...register("password")} />
+                <input className="body-default" type="password" id="password" name="password" {...register("password")} />
               </div>
-              <button className={`${styles.button} body-large`}>Se connecter</button>
+              <BlueButton texte={"Se connecter"} />
             </form>
             <Link className="body-default" href="/">Mot de passe oublié ?</Link>
           </div>

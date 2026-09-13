@@ -1,0 +1,41 @@
+.scrollDurationContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 24px;
+    padding: 14px 4px;
+    gap: 6px;
+    border-radius: 10px;
+}
+
+.scrollDurationContainer button {
+    width: 24px;
+    height: 24px;
+    border-radius: 10px;
+    border-width: 1px;
+    background: none;
+    margin: none;
+    padding: none;
+    border-color: var(--tertiary-color-60);
+}
+
+.headerScrollDuration {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 48px;
+}
+
+.averageChart {
+    color: var(--component-color);
+}
+
+.headerScrollDuration div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.descriptionChart {
+    color: var(--tertiary-color-60);
+}

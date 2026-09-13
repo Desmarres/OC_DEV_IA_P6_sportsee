@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styles from "@/styles/Profil.module.css";
+import styles from "./Profil.module.css";
 import useRequireAuth from "@/hooks/useRequireAuth";
 import { AuthStatus } from "@/context/AuthContext";
 

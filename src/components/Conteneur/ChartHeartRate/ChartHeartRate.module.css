@@ -1,0 +1,36 @@
+.chartHeartRate {
+    padding: 16px 40px;
+    border-radius: 10px;
+    background-color: white;
+    height: 484px;
+}
+
+.chartHeartRate {
+    width: 55%;
+}
+
+.averageChartHeartRate {
+    color: var(--secondary-color-100);
+}
+
+.headerChartHeartRat {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 48px;
+}
+
+.headerChartHeartRat div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.descriptionChart {
+    color: var(--tertiary-color-60);
+}
+
+.heartRateBarChart {
+    height: 350px;
+    margin-top: 40px;
+}
