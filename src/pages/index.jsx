@@ -5,7 +5,7 @@ import useAuth, { AuthStatus } from "@/context/AuthContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import BlueButton from "@/components/BlueButton/BlueButton";
 
 /**
@@ -27,10 +27,17 @@ export default function Home() {
 
   const router = useRouter();
   const { status, login } = useAuth();
+  const [loginError, setLoginError] = useState("");
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => {
-    login(data.username, data.password);
+  const onSubmit = async (data) => {
+    setLoginError("");
+
+    try {
+      await login(data.username, data.password);
+    } catch (error) {
+      setLoginError(error.message);
+    }
   };
 
   useEffect(() => {
@@ -62,6 +69,11 @@ export default function Home() {
             </h1>
             <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
               <h2 className="heading-4">Se connecter</h2>
+              {loginError && (
+                <p className={`${styles.error} body-small`} role="alert">
+                  {loginError}
+                </p>
+              )}
               <div className={styles.formInput}>
                 <label className="body-default" htmlFor="username">Adresse email</label>
                 <input className="body-default" type="text" id="username" name="username" {...register("username")} />

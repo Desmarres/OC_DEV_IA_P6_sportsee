@@ -14,30 +14,41 @@ import { serialize } from "cookie";
  * @returns {void} Envoie une réponse HTTP contenant `{ userId }` ou un message d'erreur.
  */
 export default async function loginHandler(request, response) {
-
     const { username, password } = request.body;
 
-    const responseBackend = await fetch(`${apiUrl}/api/login`,
-        {
+    try {
+        const responseBackend = await fetch(`${apiUrl}/api/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password }),
+        });
+
+        if (!responseBackend.ok) {
+            return response
+                .status(responseBackend.status)
+                .json({ error: 'Identifiants invalides' });
         }
-    );
 
-    if (!responseBackend.ok) {
-        return response.status(401).json({ error: 'Identifiants invalides' })
-    };
+        const { token, userId } = await responseBackend.json();
 
-    const { token, userId } = await responseBackend.json();
+        response.setHeader(
+            'Set-Cookie',
+            serialize('token', token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+                maxAge: 60 * 60 * 24,
+                path: '/'
+            })
+        );
 
-    response.setHeader('Set-Cookie', serialize('token', token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 60 * 60 * 24, // 24h
-        path: '/'
-    }));
+        return response.status(200).json({ userId });
 
-    return response.status(200).json({ userId });
+    } catch (error) {
+        console.error('Erreur lors de la connexion :', error);
+
+        return response
+            .status(500)
+            .json({ message: 'Le serveur est momentanément indisponible' });
+    }
 };
