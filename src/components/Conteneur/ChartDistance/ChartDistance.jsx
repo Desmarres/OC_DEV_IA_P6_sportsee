@@ -5,16 +5,34 @@ import KilometreBarChart from "@/components/BarChart/KilometreBarChart/Kilometre
 import { getWeeklyDistances } from "@/utils/dataActivity";
 import { formatDateRelativePeriod } from "@/utils/date";
 import useUserActivity from "@/hooks/useActivitySession";
-import { numberOfWeeks } from "@/config/constants";
+import { NUMBER_OF_WEEKS } from "@/config/constants";
 import { useState } from "react";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 
+/**
+ * Affiche un graphique représentant les distances parcourues
+ * chaque semaine sur une période de quatre semaines.
+ *
+ * Les données sont récupérées en fonction de la période sélectionnée
+ * et peuvent être parcourues semaine par semaine grâce au sélecteur
+ * de période.
+ *
+ * Le composant gère également les états de chargement et d'erreur
+ * lors de la récupération des données d'activité.
+ *
+ * @param {Object} props - Les propriétés du composant.
+ * @param {Date} [props.today=new Date()] - Date de référence utilisée
+ * pour déterminer la période initiale affichée.
+ *
+ * @returns {JSX.Element} Le graphique des distances hebdomadaires,
+ * un indicateur de chargement ou un message d'erreur.
+ */
 export default function ChartDistance({ today = new Date() }) {
 
     const [period, setPeriod] = useState(formatDateRelativePeriod(today, 28));
     const { data, loading, error } = useUserActivity(period.startWeekPeriod.formatISO, period.endWeekPeriod.formatISO);
 
-    const kilometresData = getWeeklyDistances(data, numberOfWeeks, period.endWeekPeriod.date)
+    const kilometresData = getWeeklyDistances(data, NUMBER_OF_WEEKS, period.endWeekPeriod.date)
 
     const changePeriod = (previous) => {
         const newEndWeekPeriod = new Date(period.endWeekPeriod.date);

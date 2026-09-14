@@ -1,30 +1,18 @@
-import { apiUrl } from '@/config/constants';
+import { API_URL } from '@/config/constants';
 import { getValidToken } from '@/utils/auth';
 
 /**
- * Test le token d'authentification,
- * appelle la route backend `/api/user-info` avec ce token,
- * puis retourne les informations utilisateur et ses statistiques au client.
+ * Récupère les informations du profil et les statistiques de l'utilisateur.
+ *
+ * Le handler vérifie la présence d'un token d'authentification valide,
+ * puis transmet la requête au backend avec ce token.
+ * Les données retournées par le backend sont ensuite transmises au client.
  *
  * @param {object} request - Requête HTTP contenant le cookie d'authentification.
  * @param {object} response - Réponse HTTP utilisée pour retourner les données au client.
- * @returns {object} Les informations utilisateur et ses statistiques :
- * {
- *  profile: userProfile{
- *      firstName,
- *      lastName,
- *      createdAt,
- *      age,
- *      weight,
- *      height,
- *      profilePicture
- *  },
- *  statistics: {
- *     totalDistance,
- *     totalSessions,
- *     totalDuration
- *  }
- * }
+ *
+ * @returns {void} Transmet au client les informations du profil et les statistiques
+ * retournées par le backend, ou une erreur `401` si l'utilisateur n'est pas authentifié.
  */
 export default async function userInfoHandler(request, response) {
 
@@ -32,7 +20,7 @@ export default async function userInfoHandler(request, response) {
 
     if (!token) return response.status(401).json({ error: 'Non authentifié' });
 
-    const responseBackend = await fetch(`${apiUrl}/api/user-info`, {
+    const responseBackend = await fetch(`${API_URL}/api/user-info`, {
         headers: { Authorization: `Bearer ${token}` }
     });
 

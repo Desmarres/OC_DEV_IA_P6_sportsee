@@ -3,11 +3,31 @@ import styles from "./ThisWeek.module.css"
 import { formatDateWeek } from "@/utils/date";
 import useUserActivity from "@/hooks/useActivitySession";
 import Loader from "@/components/Loader/Loader";
-import { goalTarget } from "@/config/constants";
+import { GOAL_TARGET } from "@/config/constants";
 import { getAggregateActivityMetrics } from "@/utils/dataActivity";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 
-export default function ThisWeek({ today = new Date(), goal = goalTarget }) {
+/**
+ * Affiche un résumé des activités réalisées par l'utilisateur
+ * au cours de la semaine en cours.
+ *
+ * Le composant présente la période concernée, le nombre de courses
+ * réalisées par rapport à l'objectif hebdomadaire, ainsi que la durée
+ * totale d'activité et la distance parcourue.
+ *
+ * Les données sont récupérées pour la semaine correspondant à la date
+ * fournie et les états de chargement et d'erreur sont pris en charge.
+ *
+ * @param {Object} props - Les propriétés du composant.
+ * @param {Date} [props.today=new Date()] - Date de référence utilisée
+ * pour déterminer la semaine affichée.
+ * @param {number} [props.goal=GOAL_TARGET] - Objectif hebdomadaire
+ * de courses à atteindre.
+ *
+ * @returns {JSX.Element} Un résumé des performances de la semaine,
+ * un indicateur de chargement ou un message d'erreur.
+ */
+export default function ThisWeek({ today = new Date(), goal = GOAL_TARGET }) {
 
     const { startWeek, endWeek } = formatDateWeek(today);
     const { data, loading, error } = useUserActivity(startWeek.formatISO, endWeek.formatISO);
@@ -27,7 +47,7 @@ export default function ThisWeek({ today = new Date(), goal = goalTarget }) {
                     <div className={styles.thisWeekContainer} >
                         <div className={styles.weeklyRun}>
                             <div className={styles.activitytarget}>
-                                <p className="body-large"><span className="heading-4">x{countActivity}</span> sur objectif de {goalTarget}</p>
+                                <p className="body-large"><span className="heading-4">x{countActivity}</span> sur objectif de {goal}</p>
                                 <h3 className="body-default">Courses hebdomadaire réalisées</h3>
                             </div>
                             <div className={styles.activityTargetBarChart} >

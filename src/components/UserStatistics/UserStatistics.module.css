@@ -1,0 +1,13 @@
+.userStatisticalContainer {
+    display: flex;
+    height: 512px;
+    gap: 5%;
+}
+
+.leftColumn,
+.rightColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+    width: 47%;
+}

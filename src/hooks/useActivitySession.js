@@ -8,15 +8,14 @@ import { useEffect, useState } from "react";
  * et annule la requête en cours lorsque les paramètres changent ou que
  * le composant est démonté.
  *
- * @param {string} startWeek Date de début de la période à récupérer.
- * @param {string} endWeek Date de fin de la période à récupérer.
+ * @param {string} startWeek - Date de début de la période à récupérer.
+ * @param {string} endWeek - Date de fin de la période à récupérer.
  *
  * @returns {{
  *   data: Array,
  *   loading: boolean,
- *   error: string|null
- * }} Les données d'activité, l'état de chargement et le message d'erreur
- * éventuel.
+ *   error: Error|null
+ * }} Les données d'activité, l'état de chargement et l'erreur éventuelle.
  */
 export default function useUserActivity(startWeek, endWeek) {
 

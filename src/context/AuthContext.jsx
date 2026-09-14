@@ -12,12 +12,13 @@ const AuthContext = createContext(null);
  * Fournit le contexte d'authentification à l'ensemble des composants enfants.
  *
  * Le provider vérifie au chargement si l'utilisateur est authentifié,
- * puis met à disposition les fonctions de connexion et de déconnexion
- * ainsi que le statut d'authentification.
+ * puis met à disposition le statut d'authentification ainsi que les fonctions
+ * de connexion et de déconnexion.
  *
- * @param {Object} props Les propriétés du composant.
- * @param {React.ReactNode} props.children Les composants enfants bénéficiant
+ * @param {Object} props - Les propriétés du composant.
+ * @param {React.ReactNode} props.children - Les composants enfants bénéficiant
  * du contexte d'authentification.
+ *
  * @returns {JSX.Element} Le contexte d'authentification contenant le statut
  * et les fonctions de connexion et de déconnexion.
  */
@@ -64,10 +65,11 @@ export function AuthProvider({ children }) {
  *
  * @returns {{status: number, login: Function, logout: Function}}
  * Les données et fonctions fournies par le contexte d'authentification.
+ *
  * @throws {Error} Si le hook est utilisé en dehors d'un `AuthProvider`.
  */
 export default function useAuth() {
-    const context = useContext(AuthContext);;
+    const context = useContext(AuthContext);
     if (!context) throw new Error('useAuth doit être utilisé dans un AuthProvider');
     return context;
 };

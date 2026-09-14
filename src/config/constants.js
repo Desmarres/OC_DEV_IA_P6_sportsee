@@ -1,13 +1,18 @@
 /**
- * Ce Fichier regroupe les constantes globales à l'application
+ * Regroupe les constantes globales utilisées dans l'application.
+ *
+ * Ces constantes centralisent notamment la configuration de l'API,
+ * les objectifs d'activité, les périodes utilisées pour les graphiques
+ * ainsi que les libellés de jours, de mois et de légende.
  */
 
-export const apiUrl = "http://localhost:8000";
+export const API_URL = "http://localhost:8000";
 
-export const goalTarget = 6;
+export const GOAL_TARGET = 6;
 
-export const numberOfWeeks = 4;
+export const NUMBER_OF_WEEKS = 4;
 
-export const days = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']
+export const DAYS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']
 
-export const smallMonths = ["janv", "fev", "mars", "avr", "mai", "juin", "juil", "aout", "sept", "oct", "nov", "dec"]
+export const SMALL_MONTHS = ["janv", "fev", "mars", "avr", "mai", "juin", "juil", "aout", "sept", "oct", "nov", "dec"]
+

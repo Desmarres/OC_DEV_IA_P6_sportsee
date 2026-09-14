@@ -1,0 +1,37 @@
+.mainContainer {
+    display: flex;
+    margin: 0 120px;
+    padding: 90px 70px;
+    gap: 5%;
+}
+
+.profilContainer {
+    display: flex;
+    flex-direction: column;
+    height: 717px;
+    width: 45%;
+    gap: 16px;
+}
+
+.userProfil {
+    border-radius: 10px;
+    padding: 24px 32px;
+    background-color: white;
+}
+
+.statisticsContainer {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 32px;
+}
+
+.statisticsTitle {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.statisticsTitle p {
+    color: var(--tertiary-color-60);
+}

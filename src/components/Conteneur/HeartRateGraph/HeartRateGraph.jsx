@@ -1,13 +1,31 @@
 import ScrollDuration from "@/components/ScrollDuration/ScrollDuration"
-import styles from "./ChartHeartRate.module.css"
-import HeartRateBarChart from "@/components/BarChart/HeartRateBarChart/HeartRateBarChart"
+import styles from "./HeartRateGraph.module.css"
 import { getHeartRate } from "@/utils/dataActivity";
 import Loader from "@/components/Loader/Loader";
 import { formatDateWeek } from "@/utils/date";
 import useUserActivity from "@/hooks/useActivitySession";
 import { useState } from "react";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
+import HeartRateGraph from "@/components/BarChart/HeartRateBarChart/HeartRateBarChart";
 
+/**
+ * Affiche un graphique représentant l'évolution de la fréquence cardiaque
+ * sur une semaine.
+ *
+ * Les données de fréquence cardiaque sont récupérées pour la période
+ * sélectionnée et affichent les valeurs minimale, maximale et moyenne
+ * pour chaque jour. La période peut être parcourue semaine par semaine.
+ *
+ * Le composant gère également les états de chargement et d'erreur
+ * lors de la récupération des données d'activité.
+ *
+ * @param {Object} props - Les propriétés du composant.
+ * @param {Date} [props.today=new Date()] - Date de référence utilisée
+ * pour déterminer la semaine initialement affichée.
+ *
+ * @returns {JSX.Element} Le graphique de fréquence cardiaque,
+ * un indicateur de chargement ou un message d'erreur.
+ */
 export default function ChartHeartRate({ today = new Date() }) {
 
     const [period, setPeriod] = useState(formatDateWeek(today))
@@ -23,8 +41,6 @@ export default function ChartHeartRate({ today = new Date() }) {
 
         setPeriod(formatDateWeek(newStartPeriod));
     };
-
-    console.log(error)
 
     return (
         <>
@@ -43,7 +59,7 @@ export default function ChartHeartRate({ today = new Date() }) {
                                 onClick={changePeriod}
                             />
                             <div className={styles.heartRateBarChart} >
-                                <HeartRateBarChart
+                                <HeartRateGraph
                                     data={heartRates}
                                     XDataKey={"day"}
                                     BarDataKey={["min", "max", "average"]}

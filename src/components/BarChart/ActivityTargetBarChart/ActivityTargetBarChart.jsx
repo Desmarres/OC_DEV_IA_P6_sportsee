@@ -1,7 +1,22 @@
+import { GOAL_TARGET } from "@/config/constants";
 import styles from "./ActivityTargetBarChart.module.css"
 import { Pie, PieChart } from "recharts";
 
-export default function ActivityTargetBarChart({ completed, goal = 6 }) {
+/**
+ * Affiche un graphique circulaire représentant la progression
+ * d'une activité par rapport à un objectif défini.
+ *
+ * Le graphique distingue le nombre d'activités réalisées
+ * du nombre d'activités restantes pour atteindre l'objectif.
+ *
+ * @param {Object} props - Les propriétés du composant.
+ * @param {number} props.completed - Nombre d'activités déjà réalisées.
+ * @param {number} [props.goal=GOAL_TARGET] - Objectif total d'activités à atteindre.
+ *
+ * @returns {JSX.Element} Un graphique circulaire affichant la progression
+ * et les valeurs réalisées/restantes.
+ */
+export default function ActivityTargetBarChart({ completed, goal = GOAL_TARGET }) {
 
     const remaining = Math.max(goal - completed, 0);
     const data = [

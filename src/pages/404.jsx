@@ -2,13 +2,15 @@ import Link from 'next/link';
 import styles from '@/styles/404.module.css';
 
 /**
- * Affiche un bloc d'erreur personnalisée lorsque la page demandée
- * n'existe pas.
+ * Affiche une page d'erreur personnalisée avec un message et un lien
+ * permettant à l'utilisateur de revenir à la page d'accueil.
  *
- * La page informe l'utilisateur de l'erreur et lui propose un lien
- * permettant de revenir à la page d'accueil.
+ * @param {Object} props - Les propriétés du composant.
+ * @param {string} [props.error="404"] - Code ou titre de l'erreur à afficher.
+ * @param {string} [props.message="Cette page n'existe pas."] - Message
+ * décrivant l'erreur rencontrée.
  *
- * @returns {JSX.Element} Le composant contenant la page d'erreur 404.
+ * @returns {JSX.Element} La page d'erreur personnalisée.
  */
 export default function Custom404({ error = "404", message = "Cette page n'existe pas." }) {
     return (

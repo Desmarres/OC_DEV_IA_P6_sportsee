@@ -3,18 +3,20 @@ import { useEffect, useState } from "react";
 /**
  * Récupère les informations et les statistiques de l'utilisateur connecté.
  *
- * Le hook effectue une requête vers l'API au chargement du composant,
- * puis stocke le profil et les statistiques de l'utilisateur.
- * Il gère également l'état de chargement et les éventuelles erreurs
- * rencontrées lors de la récupération des données.
+ * Le hook effectue une requête vers l'API lorsque la récupération des données
+ * est activée. Il stocke le profil et les statistiques de l'utilisateur
+ * et gère les états de chargement et d'erreur.
+ *
+ * @param {boolean} [enabled=true] - Indique si la récupération des données
+ * doit être effectuée.
  *
  * @returns {{
  *   profile: Object,
  *   statistics: Object,
  *   loading: boolean,
- *   error: string|null
+ *   error: Error|null
  * }} Les informations utilisateur, les statistiques, l'état de chargement
- * et le message d'erreur éventuel.
+ * et l'erreur éventuelle.
  */
 export default function useUserInfo(enabled = true) {
 

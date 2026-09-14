@@ -4,6 +4,7 @@ import "@/styles/typography.css";
 import { Inter } from "next/font/google";
 import Layout from "../components/Layout/layout";
 import { AuthProvider } from "@/context/AuthContext";
+import { UserInfoProvider } from "@/context/UserInfoContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -14,9 +15,11 @@ const inter = Inter({
 export default function App({ Component, pageProps }) {
   return (
     <AuthProvider>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <UserInfoProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </UserInfoProvider>
     </AuthProvider>
   );
 };

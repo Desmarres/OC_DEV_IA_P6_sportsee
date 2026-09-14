@@ -2,11 +2,13 @@ import { parse } from "cookie";
 import jwt from "jsonwebtoken";
 
 /**
- * Récupère le token d'authentification depuis le cookie HttpOnly,
- * vérifie sa présence puis son expiration 
+ * Récupère le token d'authentification depuis le cookie HttpOnly
+ * et vérifie qu'il existe et qu'il n'est pas expiré.
+ *
  * @param {object} request - Requête HTTP contenant le cookie d'authentification.
- * @returns {string} Retourne le token ou null
- *  
+ *
+ * @returns {string|null} Le token d'authentification s'il est présent et valide,
+ * sinon `null`.
  */
 export function getValidToken(request) {
 

@@ -4,6 +4,16 @@ import Image from "next/image";
 import styles from "./Footer.module.css";
 import useAuth, { AuthStatus } from "@/context/AuthContext";
 
+/**
+ * Affiche le pied de page de l'application pour les utilisateurs
+ * authentifiés et présents sur une page autre que la page d'accueil.
+ *
+ * Le pied de page contient les mentions de copyright, les liens
+ * de navigation ainsi que le logo de l'application.
+ *
+ * @returns {JSX.Element} Le pied de page de l'application lorsqu'il
+ * doit être affiché, ou un fragment vide dans le cas contraire.
+ */
 export default function Footer() {
     const router = useRouter();
     const { status } = useAuth();

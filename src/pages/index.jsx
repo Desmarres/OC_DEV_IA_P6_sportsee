@@ -11,14 +11,9 @@ import BlueButton from "@/components/BlueButton/BlueButton";
 /**
  * Affiche la page d'accueil et le formulaire de connexion de l'application Sportsee.
  *
- * La fonction récupère le statut d'authentification de l'utilisateur ainsi que
- * la fonction permettant de se connecter. Lorsque l'utilisateur est authentifié,
- * il est automatiquement redirigé vers la page Dashboard et aucun contenu
- * n'est affiché sur la page de connexion.
- *
- * Le formulaire utilise React Hook Form pour gérer les champs de connexion
- * et appelle la fonction `login` avec l'adresse email et le mot de passe
- * renseignés par l'utilisateur.
+ * Le composant gère l'authentification de l'utilisateur et redirige automatiquement
+ * les utilisateurs déjà authentifiés vers le Dashboard. Le formulaire de connexion
+ * est géré avec React Hook Form et affiche les éventuelles erreurs d'authentification.
  *
  * @returns {JSX.Element|null} La page d'accueil avec le formulaire de connexion,
  * ou `null` si l'utilisateur est déjà authentifié.
@@ -76,11 +71,11 @@ export default function Home() {
               )}
               <div className={styles.formInput}>
                 <label className="body-default" htmlFor="username">Adresse email</label>
-                <input className="body-default" type="text" id="username" name="username" {...register("username")} />
+                <input className="body-default" defaultValue="emmaleroy" type="text" id="username" name="username" {...register("username")} />
               </div>
               <div className={styles.formInput}>
                 <label className="body-default" htmlFor="password">Mot de passe</label>
-                <input className="body-default" type="password" id="password" name="password" {...register("password")} />
+                <input className="body-default" defaultValue="password789" type="password" id="password" name="password" {...register("password")} />
               </div>
               <BlueButton texte={"Se connecter"} />
             </form>

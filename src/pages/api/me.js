@@ -1,12 +1,14 @@
 import { getValidToken } from "@/utils/auth";
 
 /**
- * Test le token d'authentification et retourne 
- * true s'il y a un token ou 
- * false si il est null
- * @param {object} request - Requête HTTP contenant le cookie d'authentification
- * @param {object} response - Réponse HTTP utilisée pour retourner les données au client.
- * @returns {object} {authenticated : boolean} 
+ * Vérifie la présence d'un token d'authentification valide
+ * afin de déterminer si l'utilisateur est authentifié.
+ *
+ * @param {object} request - Requête HTTP contenant le cookie d'authentification.
+ * @param {object} response - Réponse HTTP utilisée pour retourner le statut d'authentification.
+ *
+ * @returns {void} Envoie une réponse HTTP contenant `{ authenticated: boolean }`
+ * indiquant si l'utilisateur dispose d'un token valide.
  */
 export default function meHandler(request, response) {
 

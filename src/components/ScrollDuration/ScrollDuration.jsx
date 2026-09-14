@@ -1,5 +1,30 @@
 import styles from "./ScrollDuration.module.css"
 
+/**
+ * Affiche l'en-tête d'un graphique avec sa valeur principale,
+ * la période affichée et des boutons permettant de naviguer
+ * entre les différentes périodes.
+ *
+ * Un texte descriptif est également affiché sous l'en-tête.
+ * La couleur principale du composant est personnalisable via la propriété
+ * `color`.
+ *
+ * @param {Object} props - Les propriétés du composant.
+ * @param {string|number} props.title - Valeur ou titre principal affiché
+ * au-dessus du graphique.
+ * @param {string} props.color - Couleur utilisée pour personnaliser
+ * l'apparence de l'en-tête.
+ * @param {string} props.firstDate - Date de début de la période affichée.
+ * @param {string} props.lastDate - Date de fin de la période affichée.
+ * @param {string} props.description - Description de la donnée présentée
+ * par le graphique.
+ * @param {Function} props.onClick - Fonction appelée lors de la navigation
+ * entre les périodes. Reçoit `true` pour revenir à la période précédente
+ * et `false` pour passer à la période suivante.
+ *
+ * @returns {JSX.Element} Un en-tête de graphique avec sa période,
+ * ses contrôles de navigation et sa description.
+ */
 export default function ScrollDuration({ title, color, firstDate, lastDate, description, onClick }) {
     return (
         <div >

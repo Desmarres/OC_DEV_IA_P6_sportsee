@@ -1,14 +1,17 @@
 import styles from "./Loader.module.css";
 
 /**
- * Affiche un indicateur de chargement animé.
+ * Affiche un indicateur de chargement animé sous forme de cercle
+ * composé de plusieurs barres.
  *
- * Chaque barre du loader se voit attribuer une couleur différente au
- * départ, dans l'ordre de sa position. Toutes les 500ms, chaque barre
- * passe à la couleur suivante jusqu'à atteindre la plus intense, puis
- * revient à la plus claire, donnant l'illusion d'une rotation.
+ * L'animation est gérée par les styles CSS afin de faire varier
+ * progressivement l'apparence des différentes barres et de créer
+ * un effet de rotation indiquant qu'une opération est en cours.
  *
- * @returns {JSX.Element} Le loader SVG animé.
+ * Un attribut ARIA permet également d'indiquer aux technologies
+ * d'assistance que le contenu est actuellement en cours de chargement.
+ *
+ * @returns {JSX.Element} Un indicateur de chargement SVG animé.
  */
 export default function Loader() {
     return (

@@ -1,4 +1,4 @@
-.profil {
+.profile {
     display: flex;
     height: 117px;
     gap: 38px;
@@ -27,4 +27,8 @@
     flex-direction: column;
     justify-content: center;
     gap: 4px;
+}
+
+.detail p {
+    color: var(--tertiary-color-60);
 }

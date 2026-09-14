@@ -1,5 +1,22 @@
 import { Bar, BarChart, CartesianGrid, Legend, XAxis, YAxis } from "recharts";
 
+/**
+ * Affiche un graphique en barres représentant une distance en kilomètres.
+ *
+ * L'échelle de l'axe vertical est calculée automatiquement à partir
+ * de la valeur maximale présente dans les données. Les graduations
+ * sont générées par intervalles de 10 kilomètres.
+ *
+ * @param {Object} props - Les propriétés du composant.
+ * @param {Array<Object>} props.data - Données utilisées pour alimenter le graphique.
+ * @param {string} props.XDataKey - Nom de la propriété utilisée pour les valeurs
+ * affichées sur l'axe horizontal.
+ * @param {string} props.YDataKey - Nom de la propriété contenant les valeurs
+ * en kilomètres affichées sur l'axe vertical.
+ *
+ * @returns {JSX.Element} Un graphique en barres représentant les distances
+ * en kilomètres.
+ */
 export default function KilometreBarChart({ data, XDataKey, YDataKey }) {
 
     const maxValue = Math.max(...data.map(item => item[YDataKey]));

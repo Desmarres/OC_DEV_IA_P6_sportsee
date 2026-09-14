@@ -1,11 +1,25 @@
 import { Bar, BarChart, CartesianGrid, Legend, Line, XAxis, YAxis } from "recharts";
 
+/**
+ * Éléments affichés dans la légende du graphique.
+ *
+ * Chaque élément définit le libellé à afficher ainsi que la couleur
+ * associée à la donnée représentée dans le graphique.
+ */
 const LEGEND_ITEMS = [
     { value: 'min', color: 'var(--secondary-color-30)' },
     { value: 'max', color: 'var(--secondary-color-100)' },
     { value: 'average', color: 'var(--primary-color-100)' },
 ];
 
+/**
+ * Affiche la légende personnalisée du graphique de fréquence cardiaque.
+ *
+ * La légende est générée à partir des éléments définis dans `LEGEND_ITEMS`
+ * et affiche pour chacun un indicateur coloré ainsi que son libellé.
+ *
+ * @returns {JSX.Element} Une liste contenant les différents éléments de la légende.
+ */
 function CustomLegend() {
     return (
         <ul
@@ -36,7 +50,27 @@ function CustomLegend() {
     );
 }
 
-export default function HeartRateBarChart({ data, XDataKey, BarDataKey }) {
+/**
+ * Affiche un graphique combiné représentant les valeurs minimale,
+ * maximale et moyenne de la fréquence cardiaque.
+ *
+ * Les valeurs minimale et maximale sont représentées sous forme de barres,
+ * tandis que la valeur moyenne est représentée par une ligne.
+ * L'axe horizontal et les données affichées sont configurables
+ * grâce aux clés fournies en paramètres.
+ *
+ * @param {Object} props - Les propriétés du composant.
+ * @param {Array<Object>} props.data - Données utilisées pour alimenter le graphique.
+ * @param {string} props.XDataKey - Nom de la propriété utilisée pour les valeurs
+ * de l'axe horizontal.
+ * @param {string[]} props.BarDataKey - Liste des propriétés utilisées pour les
+ * données du graphique. L'index 0 correspond au minimum, l'index 1 au maximum
+ * et l'index 2 à la moyenne.
+ *
+ * @returns {JSX.Element} Un graphique affichant les valeurs minimale,
+ * maximale et moyenne de la fréquence cardiaque.
+ */
+export default function HeartRateGraph({ data, XDataKey, BarDataKey }) {
 
     const ticks = [130, 145, 160, 187]
     return (

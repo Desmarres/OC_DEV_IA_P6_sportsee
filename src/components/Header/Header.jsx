@@ -11,8 +11,10 @@ import useAuth, { AuthStatus } from "@/context/AuthContext";
  * est authentifié et se trouve sur une page autre que l'accueil,
  * le menu de navigation ainsi que le bouton de déconnexion sont affichés.
  *
- * La page actuellement visitée est identifiée afin d'appliquer un style
- * spécifique au lien de navigation correspondant.
+ * Le lien correspondant à la page actuellement visitée reçoit un style
+ * spécifique afin d'indiquer la section active.
+ *
+ * Le bouton de déconnexion permet de mettre fin à la session de l'utilisateur.
  *
  * @returns {JSX.Element} L'en-tête contenant le logo et, si nécessaire,
  * le menu de navigation et le bouton de déconnexion.
