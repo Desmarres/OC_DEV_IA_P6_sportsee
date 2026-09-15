@@ -26,7 +26,7 @@ export default function UserProfilDetail({ profile }) {
             <h2 className="heading-4">Votre profil</h2>
             <ul className="body-large">
                 <li>Âge : {profile.age}</li>
-                <li>Nom : {profile.lastName}</li>
+                <li>Genre : {profile.gender === "female" ? "Femme" : "Homme"}</li>
                 <li>Taille : {`${meters}m${centimeters}`}</li>
                 <li>Poids : {profile.weight}kg</li>
             </ul>
