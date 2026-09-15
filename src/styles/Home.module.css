@@ -13,6 +13,7 @@
 .backgroundPictureWrapper {
     flex: 808 1 0;
     position: relative;
+    z-index: 20;
 }
 
 .backgroundPicture {
