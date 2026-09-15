@@ -128,6 +128,7 @@ export default function HeartRateGraph({ data, XDataKey, BarDataKey }) {
             <Line
                 type="monotone"
                 dataKey={BarDataKey[2]}
+                connectNulls
                 name="average"
                 stroke="#F2F3FF"
                 strokeWidth={3}
