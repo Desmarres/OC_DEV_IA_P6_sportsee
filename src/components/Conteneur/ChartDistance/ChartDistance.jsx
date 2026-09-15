@@ -29,7 +29,7 @@ import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
  */
 export default function ChartDistance({ today = new Date() }) {
 
-    const [period, setPeriod] = useState(formatDateRelativePeriod(today, 28));
+    const [period, setPeriod] = useState(formatDateRelativePeriod(today, 27));
     const { data, loading, error } = useUserActivity(period.startWeekPeriod.formatISO, period.endWeekPeriod.formatISO);
 
     const kilometresData = getWeeklyDistances(data, NUMBER_OF_WEEKS, period.endWeekPeriod.date)

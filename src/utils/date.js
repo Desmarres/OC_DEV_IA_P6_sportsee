@@ -74,26 +74,31 @@ export function formatDateWeek(date = new Date()) {
 
 /**
  * Détermine les dates de début et de fin d'une période relative
- * à partir d'un dernier jour donné.
+ * à partir d'une date donnée. La date de fin est ajustée au dimanche
+ * suivant ou conservée si elle correspond déjà à un dimanche.
  *
- * @param {Date} [lastDay=new Date()] - Date correspondant à la fin
- * de la période.
- * @param {number} [period=28] - Nombre de jours à soustraire pour
- * déterminer le début de la période.
+ * @param {Date} [lastDay=new Date()] - Date de référence à partir
+ * de laquelle est déterminée la fin de la période.
+ * @param {number} [period=27] - Nombre de jours à soustraire à la
+ * date de fin pour déterminer le début de la période.
  *
  * @returns {{
  *   startWeekPeriod: Object,
  *   endWeekPeriod: Object
  * }} Les informations de formatage du début et de la fin de la période.
  */
-export function formatDateRelativePeriod(lastDay = new Date(), period = 28) {
+export function formatDateRelativePeriod(lastDay = new Date(), period = 27) {
+    const endDay = new Date(lastDay);
 
-    const firstDay = new Date(lastDay);
+    const daysUntilSunday = (7 - endDay.getDay()) % 7;
+    endDay.setDate(endDay.getDate() + daysUntilSunday);
+
+    const firstDay = new Date(endDay);
     firstDay.setDate(firstDay.getDate() - period);
 
     return {
         startWeekPeriod: listFormatDate(firstDay),
-        endWeekPeriod: listFormatDate(lastDay)
+        endWeekPeriod: listFormatDate(endDay)
     };
 }
 
