@@ -56,7 +56,7 @@ export default function Home() {
                         <LastPerformance today={today} />
                         <ThisWeek
                             today={today}
-                            goal={GOAL_TARGET}
+                            goal={profile.weeklyGoal}
                         />
                     </section>
                 </div>
