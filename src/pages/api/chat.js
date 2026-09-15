@@ -1,4 +1,16 @@
-
+/**
+ * Gère les requêtes de conversation avec l'assistant sportif de Sportsee.
+ *
+ * Le handler valide la méthode HTTP et le contenu du prompt, limite sa taille,
+ * puis transmet la requête à l'API Mistral. Il gère également les erreurs,
+ * les dépassements de délai et les réponses invalides du service.
+ *
+ * @param {object} req - Requête HTTP contenant le prompt de l'utilisateur.
+ * @param {object} res - Réponse HTTP utilisée pour retourner la réponse de l'assistant.
+ *
+ * @returns {void} Envoie une réponse HTTP contenant la réponse de Mistral
+ * ou un message d'erreur adapté au problème rencontré.
+ */
 export default async function chat(req, res) {
 
     const MAX_LENGTH = 1000;
