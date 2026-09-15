@@ -23,18 +23,18 @@ export default function UserProfil({ profile }) {
     return (
         <div className={styles.profile}>
             <div className={styles.imageContainer}>
-                <Image
+                {profile?.profilePicture && <Image
                     src={profile.profilePicture}
                     alt="Photo de profil"
                     className={styles.profilePicture}
                     fill
                     sizes="104px"
                     priority
-                />
+                />}
             </div>
             <div className={styles.detail}>
-                <h1 className="heading-4">{profile.firstName}</h1>
-                <p className="body-default">Membre depuis le {profile.createdAt && formatDate(profile.createdAt)}</p>
+                <h1 className="heading-4">{profile?.firstName}</h1>
+                <p className="body-default">Membre depuis le {profile?.createdAt && formatDate(profile.createdAt)}</p>
             </div>
         </div>
     )
