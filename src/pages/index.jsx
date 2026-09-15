@@ -71,11 +71,11 @@ export default function Home() {
               )}
               <div className={styles.formInput}>
                 <label className="body-default" htmlFor="username">Adresse email</label>
-                <input className="body-default" defaultValue="emmaleroy" type="text" id="username" name="username" {...register("username")} />
+                <input className="body-default" type="text" id="username" name="username" {...register("username")} />
               </div>
               <div className={styles.formInput}>
                 <label className="body-default" htmlFor="password">Mot de passe</label>
-                <input className="body-default" defaultValue="password789" type="password" id="password" name="password" {...register("password")} />
+                <input className="body-default" type="password" id="password" name="password" {...register("password")} />
               </div>
               <BlueButton texte={"Se connecter"} />
             </form>
