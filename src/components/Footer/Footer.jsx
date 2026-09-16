@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
-import Image from "next/image";
 import styles from "./Footer.module.css";
 import useAuth, { AuthStatus } from "@/context/AuthContext";
+import LogoShort from '@/assets/logoShort.svg'
 
 /**
  * Affiche le pied de page de l'application pour les utilisateurs
@@ -34,13 +34,10 @@ export default function Footer() {
                         <Link href="/">Conditions générales</Link>
                         <Link href="/">Contact</Link>
                         <Link href="/">
-                            <Image
-                                src="/logoShort.svg"
-                                alt="Logo Sportsee"
+                            <LogoShort
                                 className={styles.logo}
                                 width={19}
                                 height={21}
-                                loading='eager'
                             />
                         </Link>
                     </nav>

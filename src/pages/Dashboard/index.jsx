@@ -3,7 +3,6 @@ import styles from "./Dashboard.module.css";
 import useRequireAuth from "@/hooks/useRequireAuth";
 import { AuthStatus } from "@/context/AuthContext";
 import Loader from "@/components/Loader/Loader";
-import { GOAL_TARGET } from "@/config/constants";
 import ThisWeek from "@/components/Conteneur/ThisWeek/ThisWeek";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import UserProfil from "@/components/UserProfil/UserProfil";

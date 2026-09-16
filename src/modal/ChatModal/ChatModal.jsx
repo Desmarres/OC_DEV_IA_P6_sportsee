@@ -1,9 +1,9 @@
 import useChat from "@/context/ChatContext";
 import styles from "./ChatModal.module.css";
-import Image from "next/image";
 import BlueButton from "@/components/BlueButton/BlueButton";
 import { useForm, useWatch } from "react-hook-form";
-import Icon from '@/assets/IconeAI.svg'
+import IconAI from '@/assets/IconeAI.svg'
+import CrossClose from '@/assets/crossClose.svg'
 
 export default function ChatModal() {
 
@@ -45,13 +45,10 @@ export default function ChatModal() {
                 <div className={styles.closedContainer}>
                     <div className="body-default" onClick={toggleChat}>
                         <p>Fermer</p>
-                        <Image
-                            src="/crossClose.svg"
-                            alt="Croix de fermeture de la modale"
+                        <CrossClose
                             className={styles.logo}
                             width={12}
                             height={12}
-                            loading='eager'
                         />
                     </div>
                 </div>
@@ -61,7 +58,7 @@ export default function ChatModal() {
                 <div className={`${styles.textareaContainer} body-default`}>
                     {!prompt && (
                         <div className={styles.placeholder}>
-                            <Icon
+                            <IconAI
                                 color="var(--secondary-color-30)"
                                 width={19}
                                 height={21}

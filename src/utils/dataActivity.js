@@ -126,9 +126,11 @@ export function getHeartRate(data, day) {
         }
     }
 
-    const weeklyAverage = countAverage > 0
+    let weeklyAverage = countAverage > 0
         ? totalAverage / countAverage
         : 0;
+
+    weeklyAverage = Number(weeklyAverage.toFixed(0))
 
     return {
         heartRates,

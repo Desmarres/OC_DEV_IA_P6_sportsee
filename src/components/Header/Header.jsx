@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
-import Image from "next/image";
 import styles from "./Header.module.css";
 import useAuth, { AuthStatus } from "@/context/AuthContext";
 import useChat from "@/context/ChatContext";
+import Logo from '@/assets/logo.svg'
 
 /**
  * Affiche l'en-tête de navigation de l'application.
@@ -33,13 +33,10 @@ export default function Header() {
         <header>
             <nav className={styles.nav + (showMenu ? ` ${styles.navWithMenu}` : '')}>
                 <Link href="/">
-                    <Image
-                        src="/logo.svg"
-                        alt="Logo Sportsee"
+                    <Logo
                         className={styles.logo}
                         width={157}
                         height={24}
-                        loading='eager'
                     />
                 </Link>
                 {showMenu && (

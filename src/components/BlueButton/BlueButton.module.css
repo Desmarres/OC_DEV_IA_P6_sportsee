@@ -1,4 +1,8 @@
 .button {
+    background: none;
+    border: none;
+    margin: 0;
+    font: inherit;
     background-color: var(--primary-color-100);
     color: #E7E7E7;
     padding: 16px 40px;

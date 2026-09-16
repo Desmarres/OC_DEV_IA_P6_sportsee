@@ -1,5 +1,5 @@
-import Image from 'next/image'
-import styles from './GlobalDistance.module.css'
+import styles from "./GlobalDistance.module.css"
+import FinishFlag from "@/assets/finishFlag.svg"
 
 /**
  * Affiche la distance totale parcourue par l'utilisateur.
@@ -18,12 +18,9 @@ export default function GlobalDistance({ totalDistance }) {
         <div className={styles.globalDistance}>
             <p className="body-default">Distance totale parcourue</p>
             <div className={styles.blueBlock}>
-                <Image
-                    src="/finishFlag.svg"
-                    alt="Icone outline"
+                <FinishFlag
                     width={34}
                     height={34}
-                    priority
                 />
                 <p className="heading-4">{totalDistance} km</p>
             </div>
