@@ -1,5 +1,6 @@
 :root {
     --header-height: 90px;
+    --footer-height: 40px;
 }
 
 * {

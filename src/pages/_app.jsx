@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import Layout from "../components/Layout/layout";
 import { AuthProvider } from "@/context/AuthContext";
 import { UserInfoProvider } from "@/context/UserInfoContext";
+import { ChatProvider } from "@/context/ChatContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -16,9 +17,11 @@ export default function App({ Component, pageProps }) {
   return (
     <AuthProvider>
       <UserInfoProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <ChatProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ChatProvider>
       </UserInfoProvider>
     </AuthProvider>
   );

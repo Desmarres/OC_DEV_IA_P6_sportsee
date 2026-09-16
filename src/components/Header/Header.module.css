@@ -10,7 +10,7 @@
     padding: 0 100px;
     margin: 0 auto;
     height: var(--header-height);
-    z-index: 10;
+    z-index: 5;
     background-color: #E7E9FE;
 }
 
@@ -35,6 +35,16 @@
     justify-content: space-between;
     padding: 0 40px;
     width: 65%;
+}
+
+.menu button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
 }
 
 .buttonContainer {

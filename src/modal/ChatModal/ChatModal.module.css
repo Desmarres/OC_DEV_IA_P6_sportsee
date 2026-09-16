@@ -1,0 +1,110 @@
+.chatModalContainer {
+    position: absolute;
+    top: 0;
+    left: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 1200px;
+    height: 100%;
+    z-index: 20;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 22px 33px;
+    background-color: white;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 175px;
+}
+
+.closedContainer {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: flex-end;
+    color: var(--tertiary-color-60)
+}
+
+.closedContainer div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.header h1 {
+    color: var(--primary-color-100);
+    max-width: 460px;
+    text-align: center;
+}
+
+.formContainer {
+    width: 800px;
+    height: 257px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.textareaContainer {
+    position: relative;
+    width: 100%;
+}
+
+.placeholder {
+    position: absolute;
+    top: 19px;
+    left: 19px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--tertiary-color-60);
+}
+
+.textarea {
+    width: 100%;
+    height: 139px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    resize: none;
+}
+
+.textareaContainer button {
+    position: absolute;
+    right: 25px;
+    bottom: 15px;
+    width: 48px;
+    height: 48px;
+    padding: 16px;
+}
+
+.suggestionContainer {
+    width: 100%;
+    height: 94px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 13px;
+    cursor: pointer;
+}
+
+.suggestion {
+    width: 32%;
+    padding-top: 24px;
+    padding-right: 16px;
+    padding-bottom: 40px;
+    padding-left: 16px;
+    gap: 10px;
+    border-radius: 8px;
+    background-color: var(--primary-color-10);
+    color: var(--tertiary-color-60);
+}

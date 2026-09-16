@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./Header.module.css";
 import useAuth, { AuthStatus } from "@/context/AuthContext";
+import useChat from "@/context/ChatContext";
 
 /**
  * Affiche l'en-tête de navigation de l'application.
@@ -26,6 +27,7 @@ export default function Header() {
     const isAuthenticated = status === AuthStatus.Authenticated;
     const isNotHome = pathname !== '/';
     const showMenu = isAuthenticated && isNotHome;
+    const { isOpen, toggleChat } = useChat();
 
     return (
         <header>
@@ -43,9 +45,9 @@ export default function Header() {
                 {showMenu && (
                     <div className={`${styles.menuContainer} body-default`}>
                         <div className={styles.menu}>
-                            <Link className={pathname === "/Dashboard" ? styles.selected : undefined} href="/Dashboard">Dashboard</Link>
-                            <Link className={pathname === "/CoachAI" ? styles.selected : undefined} href="/CoachAI">Coach AI</Link>
-                            <Link className={pathname === "/Profil" ? styles.selected : undefined} href="/Profil">Mon profil</Link>
+                            <Link className={(pathname === "/Dashboard" && !isOpen) ? styles.selected : undefined} href="/Dashboard">Dashboard</Link>
+                            <button className={isOpen ? styles.selected : undefined} onClick={toggleChat}>Coach AI</button>
+                            <Link className={(pathname === "/Profil" && !isOpen) ? styles.selected : undefined} href="/Profil">Mon profil</Link>
                         </div>
                         <div className={styles.buttonContainer}>
                             <button className={styles.buttonLogout} onClick={logout}>Se déconnecter</button>

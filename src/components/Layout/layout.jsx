@@ -1,5 +1,7 @@
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
+import useChat from "@/context/ChatContext";
+import ChatModal from "@/modal/ChatModal/ChatModal";
 
 /**
  * Définit la structure principale des pages de l'application.
@@ -16,10 +18,13 @@ import Footer from "@/components/Footer/Footer";
  * le contenu principal et le footer.
  */
 export default function Layout({ children }) {
+
+    const { isOpen } = useChat();
     return (
         <>
             <Header />
-            <main className="page">{children}</main>
+            <main className="page">
+                {isOpen ? <ChatModal /> : children}</main>
             <Footer />
         </>
     );

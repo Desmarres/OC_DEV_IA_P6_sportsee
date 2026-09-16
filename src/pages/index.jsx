@@ -77,7 +77,10 @@ export default function Home() {
                 <label className="body-default" htmlFor="password">Mot de passe</label>
                 <input className="body-default" type="password" id="password" name="password" {...register("password")} />
               </div>
-              <BlueButton texte={"Se connecter"} />
+              <BlueButton
+                texte={"Se connecter"}
+                type="submit"
+              />
             </form>
             <Link className="body-default" href="/">Mot de passe oublié ?</Link>
           </div>
