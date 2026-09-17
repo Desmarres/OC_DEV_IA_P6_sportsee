@@ -1,0 +1,38 @@
+.loaderContainer {
+    color: var(--secondary-color-30);
+}
+
+.chatAnswerMain {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+}
+
+.chatAnswerMain p {
+    height: 15px;
+    padding: 0 10px;
+    color: var(--tertiary-color-60);
+}
+
+.chatAnswerContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 16px;
+}
+
+.chatAnswer {
+    width: 600px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 14px 20px;
+    gap: 10px;
+    border-width: 1.5px;
+    background-color: var(--tertiary-color-10);
+}
+
+.iconAI {
+    background-color: var(--secondary-color-100);
+}

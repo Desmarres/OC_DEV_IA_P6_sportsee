@@ -15,28 +15,23 @@
     background-color: white;
 }
 
+.chatContainer,
+.formContainer {
+    width: 100vw;
+    max-width: 800px;
+}
+
+.chatContainer {
+    height: 100%;
+    gap: 40px;
+}
+
 .header {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 175px;
-}
-
-.closedContainer {
-    width: 100%;
-    height: 30px;
-    display: flex;
-    justify-content: flex-end;
-    color: var(--tertiary-color-60)
-}
-
-.closedContainer div {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
 }
 
 .header h1 {
@@ -46,66 +41,9 @@
 }
 
 .formContainer {
-    width: 800px;
     height: 257px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 24px;
-}
-
-.textareaContainer {
-    position: relative;
-    width: 100%;
-}
-
-.placeholder {
-    position: absolute;
-    top: 19px;
-    left: 19px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    color: var(--tertiary-color-60);
-}
-
-.textarea {
-    width: 100%;
-    height: 139px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 16px;
-    resize: none;
-}
-
-.textareaContainer button {
-    position: absolute;
-    right: 25px;
-    bottom: 15px;
-    width: 48px;
-    height: 48px;
-    padding: 16px;
-}
-
-.suggestionContainer {
-    width: 100%;
-    height: 94px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 13px;
-    cursor: pointer;
-}
-
-.suggestion {
-    width: 32%;
-    padding-top: 24px;
-    padding-right: 16px;
-    padding-bottom: 40px;
-    padding-left: 16px;
-    gap: 10px;
-    border-radius: 8px;
-    background-color: var(--primary-color-10);
-    color: var(--tertiary-color-60);
 }

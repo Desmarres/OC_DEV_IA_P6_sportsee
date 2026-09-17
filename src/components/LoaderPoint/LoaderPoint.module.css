@@ -1,0 +1,44 @@
+.chatLoader {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    height: 11px;
+}
+
+.chatLoader span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    position: relative;
+    animation: typing 1.5s infinite;
+}
+
+.chatLoader span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.chatLoader span:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.chatLoader span:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.chatLoader span:nth-child(4) {
+    animation-delay: 0.45s;
+}
+
+@keyframes typing {
+
+    0%,
+    60%,
+    100% {
+        top: 0;
+    }
+
+    30% {
+        top: -4px;
+    }
+}

@@ -1,0 +1,15 @@
+.closedContainer {
+    width: 100%;
+    max-width: 1200px;
+    height: 30px;
+    display: flex;
+    justify-content: flex-end;
+    color: var(--tertiary-color-60)
+}
+
+.closedContainer div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}

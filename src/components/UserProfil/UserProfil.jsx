@@ -29,7 +29,6 @@ export default function UserProfil({ profile }) {
                     className={styles.profilePicture}
                     fill
                     sizes="104px"
-                    priority
                 />}
             </div>
             <div className={styles.detail}>
