@@ -1,21 +1,43 @@
-import { useEffect, useState } from "react";
+import { MAX_MESSAGES } from "@/config/constants";
+import { useEffect, useRef, useState } from "react";
 
-export default function useAnswerChat(prompt) {
 
-    const [result, setResult] = useState({
-        key: null,
-        data: null,
-        error: null,
-    });
+const removeLastError = (chats) =>
+    chats.at(-1)?.error
+        ? chats.slice(0, -1)
+        : chats;
 
-    const requestKey = JSON.stringify(prompt);
-    const promptValid = Boolean(prompt);
+const prepareMessage = (chats) => {
+    const validChats = removeLastError(chats);
+
+    return validChats.slice(-MAX_MESSAGES).flatMap((chat) => [
+        {
+            role: "user",
+            content: chat.prompt,
+        },
+        {
+            role: "assistant",
+            content: chat.answer,
+        },
+    ]);
+};
+
+
+export default function useAnswerChat({ key, prompt }) {
+
+    const [chats, setChats] = useState([]);
+    const chatsRef = useRef([]);
+
+    const NB_MAX_CHAT_MESSAGE = 5;
+    const promptValid = Boolean(prompt?.trim());
 
     useEffect(() => {
 
         if (!promptValid) return;
 
         const controller = new AbortController();
+
+        const historicMessages = prepareMessage(chatsRef.current);
 
         fetch("/api/chat", {
             method: "POST",
@@ -25,38 +47,68 @@ export default function useAnswerChat(prompt) {
             },
             body: JSON.stringify({
                 prompt: prompt,
+                historicMessages: historicMessages,
             }),
         })
-            .then(response => {
+            .then(async response => {
+                const body = await response.json();
+
                 if (!response.ok) {
-                    const error = new Error(
-                        "Impossible de récupérer la réponse du coach IA"
-                    );
+                    const error = new Error(body.error);
                     error.status = response.status;
                     throw error;
                 }
-                return response.json();
+
+                return body;
             })
             .then(({ answer }) => {
-                setResult({
-                    key: requestKey,
-                    data: answer,
-                    error: null,
+
+                setChats((prevChats) => {
+
+                    const newChats = [
+                        ...removeLastError(prevChats),
+                        {
+                            key,
+                            prompt,
+                            answer,
+                            error: null,
+                        },
+                    ].slice(-NB_MAX_CHAT_MESSAGE);
+
+                    chatsRef.current = newChats;
+
+                    return newChats;
                 });
             })
             .catch(error => {
+
                 if (error.name === "AbortError") return;
-                setResult({
-                    key: requestKey,
-                    data: null,
-                    error: error,
+
+                setChats((prevChats) => {
+
+                    const newChats = [
+                        ...removeLastError(prevChats),
+                        {
+                            key,
+                            prompt,
+                            answer: null,
+                            error,
+                        },
+                    ].slice(-NB_MAX_CHAT_MESSAGE);
+
+                    chatsRef.current = newChats;
+
+                    return newChats;
                 });
             });
+
         return () => controller.abort();
-    }, [prompt, promptValid, requestKey]);
 
-    const loading =
-        promptValid && result.key !== requestKey;
+    }, [promptValid, key, prompt]);
 
-    return { loading, result };
+    const lastChat = chats.at(-1);
+
+    const loading = promptValid && lastChat?.key !== key;
+
+    return { loading, chats };
 }

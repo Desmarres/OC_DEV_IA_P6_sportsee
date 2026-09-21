@@ -6,13 +6,6 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-
-}
-
-.chatAnswerMain p {
-    height: 15px;
-    padding: 0 10px;
-    color: var(--tertiary-color-60);
 }
 
 .chatAnswerContainer {
@@ -31,6 +24,21 @@
     gap: 10px;
     border-width: 1.5px;
     background-color: var(--tertiary-color-10);
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: -0.5%;
+}
+
+.imageContainer {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 .iconAI {

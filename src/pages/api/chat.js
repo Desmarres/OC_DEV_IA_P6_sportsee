@@ -1,45 +1,58 @@
-/**
- * Gère les requêtes de conversation avec l'assistant sportif de Sportsee.
- *
- * Le handler valide la méthode HTTP et le contenu du prompt, limite sa taille,
- * puis transmet la requête à l'API Mistral. Il gère également les erreurs,
- * les dépassements de délai et les réponses invalides du service.
- *
- * @param {object} req - Requête HTTP contenant le prompt de l'utilisateur.
- * @param {object} res - Réponse HTTP utilisée pour retourner la réponse de l'assistant.
- *
- * @returns {void} Envoie une réponse HTTP contenant la réponse de Mistral
- * ou un message d'erreur adapté au problème rencontré.
- */
+import { validateHistoricMessages, validateMethode, validatePrompt } from "@/utils/validate";
+
 export default async function chat(req, res) {
 
-    const MAX_LENGTH = 1000;
 
-    if (req.method !== "POST") {
+    const { prompt, historicMessages } = req.body;
+
+    const methodeMessagesError =
+        validateMethode(req, "POST");
+
+    if (methodeMessagesError) {
         return res.status(405).json({
-            error: "Méthode non autorisée. Utilisez POST."
+            error: methodeMessagesError,
         });
     }
 
-    const { prompt } = req.body;
+    const promptMessageError =
+        validatePrompt(prompt);
 
-    if (typeof prompt !== "string" || prompt.trim().length === 0) {
+    if (promptMessageError) {
         return res.status(400).json({
-            error: "Le champ 'prompt' est requis et doit être une chaîne non vide."
+            error: promptMessageError,
         });
     }
 
-    if (prompt.length > MAX_LENGTH) {
+    const historicMessagesError =
+        validateHistoricMessages(historicMessages);
+
+    if (historicMessagesError) {
         return res.status(400).json({
-            error: `Le champ 'prompt' ne doit pas dépasser ${MAX_LENGTH} caractères.`
+            error: historicMessagesError,
         });
     }
+
+    const roleSystème = [
+        {
+            "role": "system",
+            "content": "Tu es un coach sportif virtuel pour l'application SportSee. Tu donnes des conseils personnalisés, motivants et bienveillants sur l'entraînement, la récupération et la nutrition. Réponds toujours en français, de façon concise (quelques phrases maximum). Si une question sort du domaine du sport ou de la santé, rappelle poliment que tu es spécialisé dans le coaching sportif.Adapte la complexité de tes conseils au niveau que tu perçois chez l'utilisateur à travers ses messages (débutant, intermédiaire, expert). Explique davantage pour un débutant, sois plus technique et direct pour un expert. Si le niveau n'est pas clair, pose une question de clarification plutôt que de supposer."
+        },
+    ]
+
+    const messages = [
+        ...historicMessages,
+        {
+            role: "user",
+            content: prompt,
+        },
+    ];
 
     const controller = new AbortController();
 
     const timeout = setTimeout(() => {
         controller.abort();
     }, 30000);
+
 
     try {
         const responseMistral = await fetch("https://api.mistral.ai/v1/chat/completions", {
@@ -52,14 +65,8 @@ export default async function chat(req, res) {
             body: JSON.stringify({
                 "model": "mistral-small-latest",
                 "messages": [
-                    {
-                        "role": "system",
-                        "content": "Tu es un coach sportif virtuel pour l'application SportSee. Tu donnes des conseils personnalisés, motivants et bienveillants sur l'entraînement, la récupération et la nutrition. Réponds toujours en français, de façon concise (quelques phrases maximum). Si une question sort du domaine du sport ou de la santé, rappelle poliment que tu es spécialisé dans le coaching sportif."
-                    },
-                    {
-                        "role": "user",
-                        "content": prompt,
-                    }
+                    ...roleSystème,
+                    ...messages
                 ],
                 "temperature": 0.7
             })

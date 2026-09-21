@@ -2,8 +2,9 @@ import BlueButton from "@/components/BlueButton/BlueButton";
 import styles from "./InputPrompt.module.css";
 import IconAI from '@/assets/IconeAI.svg'
 import { useWatch } from "react-hook-form";
+import { MAX_LENGTH_PROMPT } from "@/config/constants";
 
-export default function InputPrompt({ control, register, handleSubmit, onSubmit, loading }) {
+export default function InputPrompt({ control, register, loading }) {
 
     const promptWatch = useWatch({
         control,
@@ -12,9 +13,12 @@ export default function InputPrompt({ control, register, handleSubmit, onSubmit,
     });
 
     const handleKeyDown = (e) => {
-        if (e.key === "Enter" && !e.altKey) {
+        if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
-            handleSubmit(onSubmit)();
+
+            if (!loading) {
+                e.currentTarget.form?.requestSubmit();
+            }
         }
     };
 
@@ -35,7 +39,9 @@ export default function InputPrompt({ control, register, handleSubmit, onSubmit,
                 id="prompt"
                 name="prompt"
                 {...register("prompt")}
-                onKeyDown={!loading ? handleKeyDown : undefined} />
+                onKeyDown={handleKeyDown}
+                maxLength={MAX_LENGTH_PROMPT}
+            />
             <BlueButton
                 texte={
                     <svg

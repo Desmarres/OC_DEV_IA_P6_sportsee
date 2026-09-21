@@ -32,7 +32,7 @@ export default function useUserInfo(enabled = true) {
             .then(response => {
                 if (!response.ok) {
                     const error = new Error(
-                        "Impossible de récupérer les informations sur l'activité"
+                        "Impossible de récupérer les informations sur le profil"
                     );
                     error.status = response.status;
                     throw error;

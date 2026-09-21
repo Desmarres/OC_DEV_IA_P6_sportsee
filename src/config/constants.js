@@ -12,6 +12,10 @@ export const GOAL_TARGET = 6;
 
 export const NUMBER_OF_WEEKS = 4;
 
+export const MAX_MESSAGES = 3;
+
+export const MAX_LENGTH_PROMPT = 1000;
+
 export const DAYS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']
 
 export const SMALL_MONTHS = ["janv", "fev", "mars", "avr", "mai", "juin", "juil", "aout", "sept", "oct", "nov", "dec"]

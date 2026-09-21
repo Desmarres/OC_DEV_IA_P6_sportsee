@@ -11,13 +11,13 @@ export default function Suggestion({ onClick, loading }) {
     return (
         <div className={`${styles.suggestionContainer} body-small`}>
             {suggestions.map((suggestion, index) => (
-                <div
+                <button
                     className={styles.suggestion}
                     key={`${suggestion}-${index}`}
                     onClick={!loading ? () => onClick(suggestion) : undefined}
                 >
                     {suggestion}
-                </div>
+                </button>
             ))}
         </div>
     );
