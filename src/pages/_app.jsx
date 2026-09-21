@@ -6,6 +6,7 @@ import Layout from "../components/Layout/layout";
 import { AuthProvider } from "@/context/AuthContext";
 import { UserInfoProvider } from "@/context/UserInfoContext";
 import { ChatProvider } from "@/context/ChatContext";
+import Head from "next/head";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -15,14 +16,19 @@ const inter = Inter({
 
 export default function App({ Component, pageProps }) {
   return (
-    <AuthProvider>
-      <UserInfoProvider>
-        <ChatProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ChatProvider>
-      </UserInfoProvider>
-    </AuthProvider>
+    <>
+      <Head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+      </Head>
+      <AuthProvider>
+        <UserInfoProvider>
+          <ChatProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ChatProvider>
+        </UserInfoProvider>
+      </AuthProvider>
+    </>
   );
 };
