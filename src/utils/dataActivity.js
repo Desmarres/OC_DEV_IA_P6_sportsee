@@ -1,9 +1,66 @@
-import { DAYS } from "@/config/constants";
-import { getLastWeeks, listFormatDate } from "./date";
+import { API_URL, DAYS } from "@/config/constants";
+import { formatDateRelativePeriod, getLastWeeks, listFormatDate } from "./date";
+
+/**
+ * Récupère les dernières activités de l'utilisateur sur une période
+ * calculée à partir du nombre d'activités souhaité et de l'objectif
+ * hebdomadaire.
+ *
+ * Les activités récupérées sont limitées au nombre demandé.
+ * En cas d'erreur lors de la requête ou de réponse HTTP invalide,
+ * la fonction retourne `null`.
+ *
+ * @param {string} token - Token d'authentification utilisé pour la requête.
+ * @param {number} nbActivity - Nombre d'activités à récupérer.
+ * @param {number} weeklyGoal - Objectif hebdomadaire d'activités.
+ *
+ * @returns {Promise<Array<Object>|null>} Les dernières activités récupérées
+ * ou `null` en cas d'erreur.
+ */
+export async function getLastActivities(token, nbActivity, weeklyGoal) {
+
+    const nbDayPerWeek = 7
+    const safetyFactor = 2
+    const maxWeek = Math.ceil(nbActivity / weeklyGoal) * nbDayPerWeek * safetyFactor;
+    const today = listFormatDate();
+
+    const { startWeekPeriod, endWeekPeriod } =
+        formatDateRelativePeriod(today.formatISO, maxWeek);
+
+    try {
+        const response = await fetch(
+            `${API_URL}/api/user-activity?startWeek=${startWeekPeriod.formatISO}&endWeek=${endWeekPeriod.formatISO}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            console.error(
+                "Impossible de récupérer les activités :",
+                response.status
+            );
+            return null;
+        }
+
+        const data = await response.json();
+
+        return data.slice(-nbActivity);
+
+    } catch (error) {
+        console.error("Erreur lors de la récupération des activités :", error);
+        return null;
+    }
+}
+
 
 /**
  * Calcule les distances totales parcourues pour chaque semaine
  * sur une période donnée.
+ *
+ * Les activités sont associées à leur semaine respective puis leurs distances
+ * sont additionnées. Le résultat est retourné sous la forme de quatre valeurs
+ * correspondant aux quatre semaines affichées par le graphique.
  *
  * @param {Array<Object>} data - Liste des activités de l'utilisateur.
  * @param {number} [numberOfWeeks=4] - Nombre de semaines à prendre en compte.
@@ -45,7 +102,8 @@ export function getWeeklyDistances(data, numberOfWeeks = 4, lastDay = new Date()
  * Calcule les statistiques globales d'une liste d'activités.
  *
  * Additionne le nombre d'activités, la distance totale parcourue
- * et la durée totale des activités.
+ * et la durée totale des activités. La distance totale est arrondie
+ * à une décimale.
  *
  * @param {Array<Object>} data - Liste des activités de l'utilisateur.
  *
@@ -81,6 +139,10 @@ export function getAggregateActivityMetrics(data) {
  * d'une période de sept jours ainsi que la fréquence cardiaque moyenne
  * sur l'ensemble de la période.
  *
+ * Pour chaque jour, les valeurs minimale, maximale et moyenne sont récupérées
+ * lorsqu'une activité est disponible. Les jours sans activité sont représentés
+ * par des valeurs `null`.
+ *
  * @param {Array<Object>} data - Liste des activités de l'utilisateur.
  * @param {Date} day - Date correspondant au premier jour de la période.
  *
@@ -88,7 +150,7 @@ export function getAggregateActivityMetrics(data) {
  *   heartRates: Array<Object>,
  *   weeklyAverage: number
  * }} Les données de fréquence cardiaque quotidiennes et la moyenne
- * hebdomadaire.
+ * hebdomadaire arrondie à l'entier.
  */
 export function getHeartRate(data, day) {
 

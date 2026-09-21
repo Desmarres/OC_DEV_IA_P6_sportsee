@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
  * est activée. Il stocke le profil et les statistiques de l'utilisateur
  * et gère les états de chargement et d'erreur.
  *
+ * Lorsque `enabled` vaut `false`, aucune requête n'est effectuée.
+ *
  * @param {boolean} [enabled=true] - Indique si la récupération des données
  * doit être effectuée.
  *

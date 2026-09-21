@@ -4,6 +4,23 @@ import IconAI from '@/assets/IconeAI.svg'
 import { useWatch } from "react-hook-form";
 import { MAX_LENGTH_PROMPT } from "@/config/constants";
 
+/**
+ * Affiche le champ de saisie permettant à l'utilisateur d'envoyer
+ * un message à l'assistant IA.
+ *
+ * Le composant gère l'affichage du placeholder, la saisie du prompt,
+ * sa longueur maximale et l'envoi du formulaire avec la touche Entrée.
+ * L'envoi est désactivé lorsqu'une réponse est en cours de traitement.
+ *
+ * @param {Object} props - Les propriétés du composant.
+ * @param {Object} props.control - Contrôle du formulaire fourni par React Hook Form.
+ * @param {Function} props.register - Fonction d'enregistrement du champ
+ * auprès de React Hook Form.
+ * @param {boolean} props.loading - Indique si une requête est actuellement
+ * en cours de traitement.
+ *
+ * @returns {JSX.Element} Le champ de saisie du prompt avec son bouton d'envoi.
+ */
 export default function InputPrompt({ control, register, loading }) {
 
     const promptWatch = useWatch({

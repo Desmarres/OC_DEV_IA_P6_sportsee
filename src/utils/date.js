@@ -16,10 +16,10 @@ export function formatDate(date) {
 }
 
 /**
- * Génère plusieurs formats d'une même date pour faciliter son utilisation
- * dans l'application.
+ * Génère plusieurs représentations d'une même date pour faciliter
+ * son utilisation dans différentes parties de l'application.
  *
- * @param {Date} date - Date à formater.
+ * @param {Date} [date=new Date()] - Date à formater.
  *
  * @returns {{
  *   date: Date,
@@ -28,7 +28,7 @@ export function formatDate(date) {
  *   formatSmall: string
  * }} La date d'origine ainsi que ses différentes représentations.
  */
-export function listFormatDate(date) {
+export function listFormatDate(date = new Date()) {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const smallMonth = SMALL_MONTHS[date.getMonth()]
@@ -74,11 +74,14 @@ export function formatDateWeek(date = new Date()) {
 
 /**
  * Détermine les dates de début et de fin d'une période relative
- * à partir d'une date donnée. La date de fin est ajustée au dimanche
- * suivant ou conservée si elle correspond déjà à un dimanche.
+ * à partir d'une date donnée.
  *
- * @param {Date} [lastDay=new Date()] - Date de référence à partir
- * de laquelle est déterminée la fin de la période.
+ * La date de fin est ajustée au dimanche suivant ou conservée si elle
+ * correspond déjà à un dimanche. La date de début est ensuite calculée
+ * en soustrayant le nombre de jours indiqué.
+ *
+ * @param {Date} [lastDay=new Date()] - Date de référence utilisée
+ * pour déterminer la fin de la période.
  * @param {number} [period=27] - Nombre de jours à soustraire à la
  * date de fin pour déterminer le début de la période.
  *

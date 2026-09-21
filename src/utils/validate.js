@@ -90,10 +90,6 @@ export const validateHistoricMessages = (historicMessages) => {
             return `Le champ 'content' du message ${i + 1} ne peut pas être vide.`;
         }
 
-        if (message.content.length > MAX_LENGTH_PROMPT) {
-            return `Le contenu du message ${i + 1} ne doit pas dépasser ${MAX_LENGTH_PROMPT} caractères.`;
-        }
-
         const expectedRole = i % 2 === 0
             ? "user"
             : "assistant";

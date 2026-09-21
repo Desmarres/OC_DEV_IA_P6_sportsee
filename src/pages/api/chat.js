@@ -1,7 +1,34 @@
+import { roleCoachIA } from "@/config/coachIA";
+import { MAX_LENGTH_ASSISTANT, MAX_LENGTH_PROMPT, NB_HISTORIC_ACTIVITIES } from "@/config/constants";
+import { getProfilStatistic, getValidToken } from "@/utils/auth";
+import { getLastActivities } from "@/utils/dataActivity";
+import { formatInfosProfilLastActivities } from "@/utils/promptIA";
 import { validateHistoricMessages, validateMethode, validatePrompt } from "@/utils/validate";
 
+/**
+ * Gère les requêtes de conversation avec l'assistant sportif de Sportsee.
+ *
+ * Le handler vérifie l'authentification de l'utilisateur, valide la méthode HTTP,
+ * le prompt et l'historique des messages, puis récupère les informations du profil,
+ * les statistiques et les dernières activités afin de fournir un contexte personnalisé
+ * à l'assistant IA.
+ *
+ * Les messages sont ensuite transmis à l'API Mistral avec le rôle système,
+ * et les erreurs liées au service, aux limites de requêtes ou au délai d'attente
+ * sont gérées avant de retourner la réponse au client.
+ *
+ * @param {object} req - Requête HTTP contenant le prompt et l'historique des messages.
+ * @param {object} res - Réponse HTTP utilisée pour retourner la réponse de l'assistant.
+ *
+ * @returns {void} Envoie une réponse HTTP contenant la réponse de Mistral
+ * ou un message d'erreur adapté au problème rencontré.
+ */
 export default async function chat(req, res) {
 
+
+    const token = getValidToken(req);
+
+    if (!token) return res.status(401).json({ error: 'Non authentifié' });
 
     const { prompt, historicMessages } = req.body;
 
@@ -32,20 +59,45 @@ export default async function chat(req, res) {
         });
     }
 
+    const historicMessagesModify = historicMessages.map(message => {
+
+        const maxLength = (message.role === "user") ? MAX_LENGTH_PROMPT : MAX_LENGTH_ASSISTANT
+        if (message.content && message.content.length > maxLength) {
+            return {
+                ...message,
+                content: message.content.slice(0, maxLength) + "..."
+            };
+        }
+        return message;
+    });
+
+    const profilStatistic = await getProfilStatistic(token);
+
+    const profile = profilStatistic?.profile;
+    const statistics = profilStatistic?.statistics;
+
+    const lastActivities = profile?.weeklyGoal
+        ? await getLastActivities(token, NB_HISTORIC_ACTIVITIES, profile.weeklyGoal)
+        : null;
+
+    const userInfos = formatInfosProfilLastActivities(profile, statistics, lastActivities);
+
     const roleSystème = [
         {
             "role": "system",
-            "content": "Tu es un coach sportif virtuel pour l'application SportSee. Tu donnes des conseils personnalisés, motivants et bienveillants sur l'entraînement, la récupération et la nutrition. Réponds toujours en français, de façon concise (quelques phrases maximum). Si une question sort du domaine du sport ou de la santé, rappelle poliment que tu es spécialisé dans le coaching sportif.Adapte la complexité de tes conseils au niveau que tu perçois chez l'utilisateur à travers ses messages (débutant, intermédiaire, expert). Explique davantage pour un débutant, sois plus technique et direct pour un expert. Si le niveau n'est pas clair, pose une question de clarification plutôt que de supposer."
+            "content": `${roleCoachIA} \n${userInfos}`
         },
     ]
 
     const messages = [
-        ...historicMessages,
+        ...historicMessagesModify,
         {
             role: "user",
             content: prompt,
         },
     ];
+
+
 
     const controller = new AbortController();
 
@@ -110,8 +162,6 @@ export default async function chat(req, res) {
                 error: "Mistral met trop de temps à répondre.",
             });
         }
-
-        console.error(error);
 
         return res.status(500).json({
             error: "Erreur interne du serveur.",
