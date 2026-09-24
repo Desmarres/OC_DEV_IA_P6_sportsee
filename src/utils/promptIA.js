@@ -1,4 +1,5 @@
 
+import { DAYS } from "@/config/constants";
 import { divideWithRemainder } from "./operation";
 
 /**
@@ -16,7 +17,7 @@ import { divideWithRemainder } from "./operation";
  * @returns {string} Un résumé textuel du profil, des statistiques
  * et des dernières activités de l'utilisateur.
  */
-export function formatInfosProfilLastActivities(profile, statistics, lastActivities) {
+export function formatInfosProfilLastActivities(profile, statistics, lastActivities, weeklyGoal) {
 
     let describesProfil = "Nous n'avons pas pu récupérer les informations de l'utilisateur.";
 
@@ -35,7 +36,7 @@ export function formatInfosProfilLastActivities(profile, statistics, lastActivit
             profilInfos.push(`${profile.weight} kg`);
         }
 
-        if (profile?.weeklyGoal != null) {
+        if (weeklyGoal && profile?.weeklyGoal != null) {
             profilInfos.push(`objectif : ${profile.weeklyGoal} séances/semaine`);
         }
 
@@ -110,4 +111,20 @@ export function formatInfosProfilLastActivities(profile, statistics, lastActivit
             : "Nous n'avons pas pu récupérer ses dernières activités.";
 
     return [describesProfil, describesActivities].join("\n\n");
+}
+
+export function formatRequestTrainingPlan(target, startDate, endDate, availableDays, timeSlot, numberOfWeeks) {
+
+    const targetMessage = `Génère moi un plan d'entraînement afin de pouvoir réaliser mon objectif de ${target}.`;
+
+    const periodsTrainingMessage = `Je souhaite commencer à partir du ${startDate} et 
+    terminer au ${endDate}, soit ${numberOfWeeks} semaines calendaires.`;
+
+    const slotsTrainingMessage = `Je suis disponibles sur les jours ${availableDays.map((day) => {
+        return ` ${day} (${DAYS[day]})`;
+    })
+        .join(", ")
+        } et je m'entraine sur le créneau ${timeSlot}.`;
+
+    return [targetMessage, periodsTrainingMessage, slotsTrainingMessage].join("\n");
 }

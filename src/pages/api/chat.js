@@ -1,8 +1,7 @@
 import { roleCoachIA } from "@/config/coachIA";
-import { MAX_LENGTH_ASSISTANT, MAX_LENGTH_PROMPT, NB_HISTORIC_ACTIVITIES } from "@/config/constants";
-import { getProfilStatistic, getValidToken } from "@/utils/auth";
-import { getLastActivities } from "@/utils/dataActivity";
-import { formatInfosProfilLastActivities } from "@/utils/promptIA";
+import { MAX_LENGTH_ASSISTANT, MAX_LENGTH_PROMPT } from "@/config/constants";
+import { getValidToken } from "@/utils/auth";
+import { getUserInfos } from "@/utils/userInfos";
 import { validateHistoricMessages, validateMethode, validatePrompt } from "@/utils/validate";
 
 /**
@@ -25,7 +24,6 @@ import { validateHistoricMessages, validateMethode, validatePrompt } from "@/uti
  */
 export default async function chat(req, res) {
 
-
     const token = getValidToken(req);
 
     if (!token) return res.status(401).json({ error: 'Non authentifié' });
@@ -41,22 +39,12 @@ export default async function chat(req, res) {
         });
     }
 
-    const promptMessageError =
-        validatePrompt(prompt);
-
-    if (promptMessageError) {
-        return res.status(400).json({
-            error: promptMessageError,
-        });
-    }
-
-    const historicMessagesError =
+    const validationErrorMessage =
+        validatePrompt(prompt) ||
         validateHistoricMessages(historicMessages);
 
-    if (historicMessagesError) {
-        return res.status(400).json({
-            error: historicMessagesError,
-        });
+    if (validationErrorMessage) {
+        return res.status(400).json({ error: validationErrorMessage });
     }
 
     const historicMessagesModify = historicMessages.map(message => {
@@ -71,16 +59,7 @@ export default async function chat(req, res) {
         return message;
     });
 
-    const profilStatistic = await getProfilStatistic(token);
-
-    const profile = profilStatistic?.profile;
-    const statistics = profilStatistic?.statistics;
-
-    const lastActivities = profile?.weeklyGoal
-        ? await getLastActivities(token, NB_HISTORIC_ACTIVITIES, profile.weeklyGoal)
-        : null;
-
-    const userInfos = formatInfosProfilLastActivities(profile, statistics, lastActivities);
+    const userInfos = await getUserInfos(token);
 
     const roleSystème = [
         {
@@ -97,14 +76,11 @@ export default async function chat(req, res) {
         },
     ];
 
-
-
     const controller = new AbortController();
 
     const timeout = setTimeout(() => {
         controller.abort();
     }, 30000);
-
 
     try {
         const responseMistral = await fetch("https://api.mistral.ai/v1/chat/completions", {

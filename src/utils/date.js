@@ -1,4 +1,5 @@
 import { SMALL_MONTHS } from "@/config/constants";
+import { getLastActivity } from "./dataActivity";
 
 /**
  * Formate une date selon le format français long.
@@ -57,19 +58,35 @@ export function listFormatDate(date = new Date()) {
  */
 export function formatDateWeek(date = new Date()) {
 
+    const monday = getMonday(date);
+
+    const nextSunday = new Date(monday);
+    nextSunday.setDate(nextSunday.getDate() + 6);
+
+    return {
+        startWeek: listFormatDate(monday),
+        endWeek: listFormatDate(nextSunday)
+    };
+}
+
+/**
+ * Calcule le lundi correspondant à une date donnée.
+ *
+ * Le calcul tient compte du dimanche comme premier jour de la semaine
+ * afin de déterminer le lundi de la semaine correspondante.
+ *
+ * @param {Date} date - Date de référence utilisée pour déterminer la semaine.
+ *
+ * @returns {Date} Date correspondant au lundi de la semaine.
+ */
+function getMonday(date) {
     const day = date.getDay();
     const diffToMonday = day === 0 ? -6 : 1 - day;
 
     const monday = new Date(date);
     monday.setDate(date.getDate() + diffToMonday);
 
-    const nextMonday = new Date(monday);
-    nextMonday.setDate(nextMonday.getDate() + 6);
-
-    return {
-        startWeek: listFormatDate(monday),
-        endWeek: listFormatDate(nextMonday)
-    };
+    return monday;
 }
 
 /**
@@ -137,23 +154,6 @@ export function getLastWeeks(numberOfWeeks = 4, lastDay = new Date()) {
 }
 
 /**
- * Recherche l'activité la plus récente parmi une liste d'activités.
- *
- * @param {Array<Object>} activities - Liste des activités de l'utilisateur.
- *
- * @returns {Object|null} L'activité la plus récente ou `null` si aucune
- * activité n'est disponible.
- */
-function getLastActivity(activities) {
-
-    if (!activities || activities.length === 0) return null;
-
-    return activities.reduce((latest, activity) => {
-        return activity.date > latest.date ? activity : latest;
-    });
-}
-
-/**
  * Calcule le nombre de jours écoulés depuis la dernière activité
  * jusqu'à une date de référence.
  *
@@ -180,3 +180,80 @@ export function getNbRestDays(activities, referenceDay = new Date()) {
 
     return differenceInDays
 }
+
+/**
+ * Vérifie qu'une valeur correspond à une date valide au format ISO `YYYY-MM-DD`.
+ *
+ * La fonction contrôle d'abord le format de la date à l'aide d'une expression
+ * régulière, puis vérifie que la date existe réellement afin de détecter
+ * les dates invalides comme le 30 février ou le 31 avril.
+ *
+ * @param {string} value - Valeur représentant la date à vérifier.
+ *
+ * @returns {boolean} `true` si la valeur correspond à une date ISO valide,
+ * sinon `false`.
+ */
+export function isValidISODate(value) {
+
+    const regex = /^(\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+    const match = regex.exec(value);
+
+    if (!match) return false;
+
+    const year = parseInt(match[1], 10);
+    const month = parseInt(match[2], 10);
+    const day = parseInt(match[3], 10);
+
+    const date = new Date(year, month - 1, day);
+
+    return (
+        date.getFullYear() === year &&
+        date.getMonth() === month - 1 &&
+        date.getDate() === day
+    );
+}
+
+/**
+ * Vérifie qu'une chaîne correspond à un créneau horaire valide.
+ *
+ * Le format attendu est `HHhMM-HHhMM`, avec les minutes facultatives,
+ * et des heures comprises entre 0 et 23 et des minutes entre 00 et 59.
+ *
+ * @param {string} chaine - Chaîne représentant le créneau horaire à vérifier.
+ *
+ * @returns {boolean} `true` si le créneau respecte le format attendu,
+ * sinon `false`.
+ */
+export function isValidTimeSlot(chaine) {
+    const regexCreneau = /^(0?[0-9]|1[0-9]|2[0-3])h([0-5][0-9])?-(0?[0-9]|1[0-9]|2[0-3])h([0-5][0-9])?$/;
+
+    return regexCreneau.test(chaine);
+}
+
+/**
+ * Calcule le nombre de semaines comprises entre deux dates.
+ *
+ * Le calcul commence au lundi de la semaine contenant la date de début
+ * et compte chaque semaine jusqu'à la date de fin incluse.
+ *
+ * @param {string} startDate - Date de début au format `YYYY-MM-DD`.
+ * @param {string} endDate - Date de fin au format `YYYY-MM-DD`.
+ *
+ * @returns {number} Nombre de semaines comprises dans la période.
+ */
+export function getNumberOfWeeks(startDate, endDate) {
+
+    const start = new Date(`${startDate}T00:00:00Z`);
+    const end = new Date(`${endDate}T00:00:00Z`);
+
+    const monday = getMonday(start);
+
+    let nbSemaine = 0;
+
+    while (monday <= end) {
+        nbSemaine += 1;
+        monday.setDate(monday.getDate() + 7);
+    }
+
+    return nbSemaine;
+};

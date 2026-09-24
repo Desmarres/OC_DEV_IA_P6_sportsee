@@ -1,0 +1,95 @@
+{
+    "type": "json_schema",
+    "json_schema": {
+        "name": "training_plan",
+        "strict": true,
+        "schema": {
+            "type": "object",
+            "properties": {
+                "target": {
+                    "type": "string"
+                },
+                "adjustmentNote": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "weeks": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "weekNumber": {
+                                "type": "integer"
+                            },
+                            "sessions": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "dayNumber": {
+                                            "type": "integer"
+                                        },
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "sessionObjective": {
+                                            "type": "string"
+                                        },
+                                        "duration": {
+                                            "type": [
+                                                "integer",
+                                                "null"
+                                            ]
+                                        },
+                                        "distance": {
+                                            "type": [
+                                                "number",
+                                                "null"
+                                            ]
+                                        },
+                                        "intensity": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "advice": {
+                                            "type": [
+                                                "string",
+                                                "null"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "dayNumber",
+                                        "type",
+                                        "sessionObjective",
+                                        "duration",
+                                        "distance",
+                                        "intensity",
+                                        "description",
+                                        "advice"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            }
+                        },
+                        "required": [
+                            "weekNumber",
+                            "sessions"
+                        ],
+                        "additionalProperties": false
+                    }
+                }
+            },
+            "required": [
+                "target",
+                "adjustmentNote",
+                "weeks"
+            ],
+            "additionalProperties": false
+        }
+    }
+}

@@ -26,3 +26,5 @@ export const MAX_LENGTH_PROMPT = 1000;
 export const MAX_LENGTH_ASSISTANT = 1000;
 
 export const NB_HISTORIC_ACTIVITIES = 10;
+
+export const LISTE_TRAINING_OBJECTIF = ["5km", "10km", "semi-marathon", "marathon", "entraînement libre"]

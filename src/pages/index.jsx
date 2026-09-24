@@ -89,10 +89,10 @@ export default function Home() {
           <Image
             src="/background_picture.png"
             fill
+            loading="eager"
             style={{ objectFit: 'cover' }}
             alt="Image représentant une foule qui court lors d'une manifestation sportive"
             sizes="(min-width: 1024px) 56vw, 100vw"
-            priority
           />
           <p className={`${styles.description} body-small`}>Analysez vos performances en un clin d’œil, suivez vos progrès et atteignez vos objectifs.</p>
         </div>

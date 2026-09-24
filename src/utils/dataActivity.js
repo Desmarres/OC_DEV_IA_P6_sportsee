@@ -199,3 +199,20 @@ export function getHeartRate(data, day) {
         weeklyAverage
     };
 }
+
+/**
+ * Recherche l'activité la plus récente parmi une liste d'activités.
+ *
+ * @param {Array<Object>} activities - Liste des activités de l'utilisateur.
+ *
+ * @returns {Object|null} L'activité la plus récente ou `null` si aucune
+ * activité n'est disponible.
+ */
+export function getLastActivity(activities) {
+
+    if (!activities || activities.length === 0) return null;
+
+    return activities.reduce((latest, activity) => {
+        return activity.date > latest.date ? activity : latest;
+    });
+}
