@@ -13,6 +13,21 @@ import styles from "./WeekRangePicker.module.css";
 import CustomMonthCaption from "../CustomMonthCaption/CustomMonthCaption";
 import CustomNav from "../CustomNav/CustomNav";
 
+/**
+ * Affiche un sélecteur permettant à l'utilisateur de choisir une période
+ * composée d'une ou plusieurs semaines pour son programme d'entraînement.
+ *
+ * Le composant permet de sélectionner les semaines à partir du calendrier,
+ * désactive les semaines passées et la semaine en cours, puis affiche
+ * un récapitulatif de la période sélectionnée et du nombre de semaines.
+ * La sélection est synchronisée avec le formulaire via React Hook Form.
+ *
+ * @param {Object} props - Les propriétés du composant.
+ * @param {Object} props.control - Contrôle du formulaire fourni par React Hook Form.
+ *
+ * @returns {JSX.Element} Le calendrier de sélection de la période
+ * et le récapitulatif des semaines sélectionnées.
+ */
 export default function WeekRangePicker({ control }) {
     return (
         <Controller
@@ -42,7 +57,7 @@ export default function WeekRangePicker({ control }) {
                             ? 1
                             : 0;
 
-                // Utilitaires
+                // Calcule les dates de début et de fin de la semaine contenant la date donnée.
                 const getWeek = (date) => ({
                     start: startOfWeek(date, {
                         weekStartsOn: 1,
@@ -52,6 +67,14 @@ export default function WeekRangePicker({ control }) {
                     }),
                 });
 
+                /**
+                 * Vérifie si deux dates appartiennent à la même semaine.
+                 *
+                 * @param {Date} date1 - Première date à comparer.
+                 * @param {Date} date2 - Deuxième date à comparer.
+                 *
+                 * @returns {boolean} `true` si les deux dates appartiennent à la même semaine.
+                 */
                 const isSameWeek = (date1, date2) => {
                     return (
                         startOfWeek(date1, {
@@ -63,14 +86,22 @@ export default function WeekRangePicker({ control }) {
                     );
                 };
 
-                // Semaines désactivées
+                /* Vérifie si une semaine doit être désactivée.
+                Les semaines passées et la semaine en cours ne peuvent pas être sélectionnées. */
                 const isWeekDisabled = (date) => {
                     const week = getWeek(date);
 
                     return week.start <= currentWeekStart;
                 };
 
-                // Sélection
+                /**
+                 * Gère la sélection d'une semaine dans le calendrier.
+                 *
+                 * Initialise une nouvelle sélection, inverse la plage si nécessaire
+                 * ou définit la date de fin lorsque la première semaine est déjà sélectionnée.
+                 *
+                 * @param {Date} date - Date correspondant à la semaine sélectionnée.
+                 */
                 const handleDayClick = (date) => {
                     // Empêche la sélection des semaines passées
                     // et de la semaine en cours.
@@ -111,7 +142,7 @@ export default function WeekRangePicker({ control }) {
                     });
                 };
 
-                // Semaine sélectionnée
+                // Détermine si une semaine fait partie de la plage actuellement sélectionnée.
                 const isSelectedWeek = (date) => {
                     if (!start) {
                         return false;

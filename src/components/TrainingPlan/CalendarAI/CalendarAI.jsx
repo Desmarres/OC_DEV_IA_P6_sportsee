@@ -2,6 +2,19 @@ import BlueButton from "../../BlueButton/BlueButton";
 import styles from "./CalendarAI.module.css";
 import Calendar from "@/assets/calendar.svg";
 
+/**
+ * Affiche l'écran d'introduction à la création d'un planning d'entraînement
+ * personnalisé avec l'aide de l'assistant IA.
+ *
+ * Présente une introduction au fonctionnement du planning et permet
+ * à l'utilisateur de commencer le processus de création.
+ *
+ * @param {Object} props - Les propriétés du composant.
+ * @param {Function} props.nextPage - Fonction permettant de passer
+ * à l'étape suivante du processus.
+ *
+ * @returns {JSX.Element} L'écran d'introduction à la création du planning.
+ */
 export default function CalendarAI({ nextPage }) {
     return (
         <div className={styles.trainingPlanContainer}>

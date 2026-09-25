@@ -5,6 +5,21 @@ import { Controller, useWatch } from "react-hook-form";
 import SelectableButton from "@/components/SelectableButton/SelectableButton";
 import ReturnButton from "@/components/ReturnButton/ReturnButton";
 
+/**
+ * Affiche l'étape de sélection du créneau horaire d'entraînement.
+ *
+ * Le composant génère une liste de créneaux de deux heures et permet
+ * à l'utilisateur d'en sélectionner un. Le bouton de génération du planning
+ * reste désactivé tant qu'aucun créneau n'est sélectionné.
+ *
+ * @param {Object} props - Les propriétés du composant.
+ * @param {Object} props.control - Contrôle du formulaire fourni par React Hook Form.
+ * @param {Function} props.previousPage - Fonction permettant de revenir
+ * à l'étape précédente.
+ *
+ * @returns {JSX.Element} L'interface de sélection du créneau horaire
+ * avec les boutons de navigation.
+ */
 export default function TimeSlot({ control, previousPage }) {
 
     const TIMESLOTS = Array.from({ length: 12 }, (_, i) => {

@@ -6,6 +6,23 @@ import SelectableButton from "@/components/SelectableButton/SelectableButton";
 import BlueButton from "@/components/BlueButton/BlueButton";
 import ReturnButton from "@/components/ReturnButton/ReturnButton";
 
+/**
+ * Affiche l'étape de sélection des jours disponibles pour l'entraînement.
+ *
+ * Le composant permet à l'utilisateur de sélectionner ou désélectionner
+ * les jours de la semaine souhaités et désactive le bouton de navigation
+ * tant qu'aucun jour n'est sélectionné.
+ *
+ * @param {Object} props - Les propriétés du composant.
+ * @param {Function} props.previousPage - Fonction permettant de revenir
+ * à l'étape précédente.
+ * @param {Function} props.nextPage - Fonction permettant de passer
+ * à l'étape suivante.
+ * @param {Object} props.control - Contrôle du formulaire fourni par React Hook Form.
+ *
+ * @returns {JSX.Element} L'interface de sélection des jours disponibles
+ * avec les boutons de navigation.
+ */
 export default function AvailableDays({ previousPage, nextPage, control }) {
 
     const availableDays = useWatch({

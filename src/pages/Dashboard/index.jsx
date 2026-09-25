@@ -22,15 +22,15 @@ import { format } from "date-fns";
 /**
  * Affiche le tableau de bord principal de l'utilisateur authentifié.
  *
- * Le composant vérifie l'authentification de l'utilisateur avant d'afficher
- * son profil, sa distance totale, ses dernières performances et le résumé
- * de ses activités de la semaine.
+ * Le composant affiche les informations principales du profil, la distance
+ * totale parcourue, les dernières performances et le résumé des activités
+ * de la semaine. Il intègre également l'accès à l'assistant IA.
  *
  * Les états de chargement et d'erreur liés aux informations utilisateur
- * sont également pris en charge.
+ * sont pris en charge avant l'affichage du tableau de bord.
  *
  * @returns {JSX.Element|null} Le tableau de bord de l'utilisateur authentifié,
- * ou `null` lorsque l'utilisateur n'est pas authentifié.
+ * un indicateur de chargement ou un message d'erreur.
  */
 export default function Home() {
 
