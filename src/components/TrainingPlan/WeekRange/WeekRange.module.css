@@ -1,0 +1,18 @@
+.trainingPlanContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+}
+
+.trainingPlanContainer h2 {
+    max-width: 550px;
+    ;
+}
+
+.buttonContainer {
+    display: flex;
+    gap: 10px;
+}

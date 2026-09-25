@@ -29,3 +29,13 @@
     gap: 70px;
     margin: 90px 0;
 }
+
+.trainingForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    padding: 40px 0px;
+    gap: 10px;
+    background-color: white;
+}

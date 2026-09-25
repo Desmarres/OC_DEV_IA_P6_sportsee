@@ -1,0 +1,15 @@
+.button {
+    background: none;
+    margin: 0;
+    font: inherit;
+    background-color: var(--primary-color-10);
+    color: black;
+    padding: 10px 17px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 0.5px solid var(--tertiary-color-60);
+}
+
+.selected {
+    background-color: var(--primary-color-30);
+}
