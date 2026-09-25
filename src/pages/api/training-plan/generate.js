@@ -75,7 +75,6 @@ export default async function generate(req, res) {
         })
 
         const data = await responseMistral.json();
-        console.log("data.usage : ", data.usage);
 
         if (!responseMistral.ok) {
             if (responseMistral.status === 429) {
@@ -96,7 +95,6 @@ export default async function generate(req, res) {
         }
 
         const answer = JSON.parse(data.choices?.[0]?.message?.content);
-        console.log("answer : ", answer)
 
         const responseErrorMessage =
             !answer

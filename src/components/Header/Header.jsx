@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "./Header.module.css";
 import useAuth, { AuthStatus } from "@/context/AuthContext";
 import useChat from "@/context/ChatContext";
-import Logo from '@/assets/logo.svg'
+import Logo from "@/assets/logo.svg"
 
 /**
  * Affiche l'en-tête de navigation de l'application.

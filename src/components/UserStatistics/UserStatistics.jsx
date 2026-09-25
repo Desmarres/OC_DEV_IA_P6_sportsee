@@ -50,7 +50,7 @@ export default function UserStatistics({ statistics, profile }) {
     return (
         <div className={styles.userStatisticalContainer}>
             {
-                loading ? <Loader /> : error ? ErrorMessage({ error }) : (
+                loading ? <Loader /> : error ? <ErrorMessage error={error} /> : (
 
                     <>
                         <div className={styles.leftColumn}>

@@ -28,7 +28,7 @@ export default function Home() {
             </Head>
             <div className={styles.mainContainer}>
                 {
-                    loading ? <Loader /> : error ? ErrorMessage({ error }) : (
+                    loading ? <Loader /> : error ? <ErrorMessage error={error} /> : (
                         <>
                             <div className={styles.profilContainer}>
                                 <div className={styles.userProfil}>

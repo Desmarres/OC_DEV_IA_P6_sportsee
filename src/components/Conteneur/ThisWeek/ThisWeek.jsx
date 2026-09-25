@@ -43,7 +43,7 @@ export default function ThisWeek({ today = new Date(), goal = GOAL_TARGET }) {
             {loading ?
                 <Loader /> :
                 error ?
-                    ErrorMessage({ error }) :
+                    <ErrorMessage error={error} /> :
                     <div className={styles.thisWeekContainer} >
                         <div className={styles.weeklyRun}>
                             <div className={styles.activitytarget}>

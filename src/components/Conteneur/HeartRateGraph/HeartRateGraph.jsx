@@ -48,7 +48,7 @@ export default function ChartHeartRate({ today = new Date() }) {
                 loading ?
                     <Loader /> :
                     error ?
-                        ErrorMessage({ error }) :
+                        <ErrorMessage error={error} /> :
                         <div className={styles.chartHeartRate}>
                             <ScrollDuration
                                 title={`${weeklyAverage} BPM`}

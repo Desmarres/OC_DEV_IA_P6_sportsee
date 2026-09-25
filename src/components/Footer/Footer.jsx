@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import styles from "./Footer.module.css";
 import useAuth, { AuthStatus } from "@/context/AuthContext";
-import LogoShort from '@/assets/logoShort.svg'
+import LogoShort from "@/assets/logoShort.svg"
 
 /**
  * Affiche le pied de page de l'application pour les utilisateurs

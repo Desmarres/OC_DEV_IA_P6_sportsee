@@ -1,4 +1,6 @@
-import styles from "./ScrollDuration.module.css"
+import styles from "./ScrollDuration.module.css";
+import LeftArrow from "@/assets/leftArrow.svg";
+import RightArrow from "@/assets/rightArrow.svg";
 
 /**
  * Affiche l'en-tête d'un graphique avec sa valeur principale,
@@ -35,15 +37,17 @@ export default function ScrollDuration({ title, color, firstDate, lastDate, desc
                 <p className={`${styles.averageChart} heading-4`}>{title}</p>
                 <div className={styles.scrollDurationContainer}>
                     <button onClick={() => onClick(true)}>
-                        <svg width="6" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M4.70709 0.5L0.707092 4.5L4.70709 8.5" stroke="#111111" strokeLinecap="round" />
-                        </svg>
+                        <LeftArrow
+                            width={6}
+                            height={9}
+                        />
                     </button>
                     <p className="body-small">{firstDate} - {lastDate}</p>
                     <button onClick={() => onClick(false)}>
-                        <svg width="6" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0.5 8.5L4.5 4.5L0.5 0.5" stroke="#111111" strokeLinecap="round" />
-                        </svg>
+                        <RightArrow
+                            width={6}
+                            height={9}
+                        />
                     </button>
                 </div>
             </div>

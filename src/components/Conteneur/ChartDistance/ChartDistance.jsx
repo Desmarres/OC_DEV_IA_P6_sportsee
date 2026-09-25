@@ -49,7 +49,7 @@ export default function ChartDistance({ today = new Date() }) {
                 loading ?
                     <Loader /> :
                     error ?
-                        ErrorMessage({ error }) :
+                        <ErrorMessage error={error} /> :
                         <div className={styles.chartDistance}>
                             <ScrollDuration
                                 title={"18km en moyenne"}
