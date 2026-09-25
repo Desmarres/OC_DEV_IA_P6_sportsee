@@ -7,15 +7,17 @@ import styles from "./BlueButton.module.css"
  * @param {string} props.texte - Texte affiché à l'intérieur du bouton.
  * @param {string} props.type - Type du bouton.
  * @param {Function} props.onClick - Fonction exécutée au clic.
+ * @param {boolean} props.disabled - Désactive le bouton.
  *
- * @returns {JSX.Element} Un bouton stylisé.
+ * @returns {JSX.Element}
  */
-export default function BlueButton({ texte, type = "button", onClick }) {
+export default function BlueButton({ texte, type = "button", onClick, disabled = false, }) {
     return (
         <button
             className={`${styles.button} body-large`}
             type={type}
             onClick={onClick}
+            disabled={disabled}
         >
             {texte}
         </button>
