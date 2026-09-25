@@ -13,7 +13,15 @@ export const GOAL_TARGET = 3;
 
 export const NUMBER_OF_WEEKS = 4;
 
-export const DAYS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']
+export const DAYS = [
+    { long: 'Lundi', short: 'Lun' },
+    { long: 'Mardi', short: 'Mar' },
+    { long: 'Mercredi', short: 'Mer' },
+    { long: 'Jeudi', short: 'Jeu' },
+    { long: 'Vendredi', short: 'Ven' },
+    { long: 'Samedi', short: 'Sam' },
+    { long: 'Dimanche', short: 'Dim' },
+];
 
 export const SMALL_MONTHS = ["janv", "fev", "mars", "avr", "mai", "juin", "juil", "aout", "sept", "oct", "nov", "dec"]
 

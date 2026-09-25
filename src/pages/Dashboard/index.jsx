@@ -18,13 +18,19 @@ import TimeSlot from "@/components/TrainingPlan/TimeSlot/TimeSlot";
 import { useForm } from "react-hook-form";
 import WeekRange from "@/components/TrainingPlan/WeekRange/WeekRange";
 import { format } from "date-fns";
+import useTraining from "@/context/TrainingContext";
 
 /**
  * Affiche le tableau de bord principal de l'utilisateur authentifié.
  *
  * Le composant affiche les informations principales du profil, la distance
  * totale parcourue, les dernières performances et le résumé des activités
- * de la semaine. Il intègre également l'accès à l'assistant IA.
+ * de la semaine. Il intègre également l'accès à l'assistant IA et au formulaire
+ * de création d'un planning d'entraînement personnalisé.
+ *
+ * Le formulaire guide l'utilisateur à travers plusieurs étapes afin de définir
+ * son objectif, sa période d'entraînement, ses jours disponibles et son créneau
+ * horaire. Les données sont ensuite préparées lors de la soumission du formulaire.
  *
  * Les états de chargement et d'erreur liés aux informations utilisateur
  * sont pris en charge avant l'affichage du tableau de bord.
@@ -35,15 +41,16 @@ import { format } from "date-fns";
 export default function Home() {
 
     const status = useRequireAuth();
+    const { toggleTraining } = useTraining();
+
+    const today = new Date();
+    const { profile, statistics, loading, error } = useUserInfoContext();
 
     const [calendarAIPage, setCalendarAIPage] = useState("default");
     const { handleSubmit, control } = useForm();
 
-    const today = new Date();
-
-    const { profile, statistics, loading, error } = useUserInfoContext();
-
     const onSubmit = (data) => {
+        toggleTraining();
         const startDate = data.weekRange.start
             ? format(data.weekRange.start, "yyyy-MM-dd")
             : null

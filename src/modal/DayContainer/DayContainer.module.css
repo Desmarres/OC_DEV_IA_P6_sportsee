@@ -1,0 +1,39 @@
+.dayContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--tertiary-color-60);
+    padding: 32px;
+}
+
+.dayMain {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 5px;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+}
+
+.description p {
+    color: var(--tertiary-color-60);
+}
+
+.timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 72px;
+    height: 35px;
+    border-radius: 30px;
+    gap: 10px;
+    background-color: var(--primary-color-10);
+}

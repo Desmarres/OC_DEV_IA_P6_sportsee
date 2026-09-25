@@ -7,6 +7,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import { UserInfoProvider } from "@/context/UserInfoContext";
 import { ChatProvider } from "@/context/ChatContext";
 import Head from "next/head";
+import { TrainingProvider } from "@/context/TrainingContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -14,6 +15,22 @@ const inter = Inter({
   weight: ["400", "500", "600", "700", "900"],
 });
 
+/**
+ * Définit la structure globale de l'application Next.js.
+ *
+ * Le composant initialise la police utilisée par l'application et regroupe
+ * les différents contextes nécessaires à la gestion de l'authentification,
+ * des informations utilisateur, du chat et de la création des plannings.
+ * Il applique également le layout commun à l'ensemble des pages.
+ *
+ * @param {Object} props - Les propriétés du composant.
+ * @param {React.ComponentType} props.Component - Composant correspondant
+ * à la page actuellement affichée.
+ * @param {Object} props.pageProps - Propriétés transmises à la page.
+ *
+ * @returns {JSX.Element} La structure globale de l'application avec
+ * les différents providers et le layout principal.
+ */
 export default function App({ Component, pageProps }) {
   return (
     <>
@@ -23,9 +40,11 @@ export default function App({ Component, pageProps }) {
       <AuthProvider>
         <UserInfoProvider>
           <ChatProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <TrainingProvider>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </TrainingProvider>
           </ChatProvider>
         </UserInfoProvider>
       </AuthProvider>

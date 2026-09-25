@@ -27,12 +27,8 @@
 .closedCrossContainer {
     width: 1134px;
     height: 17px;
-
     display: flex;
     gap: 8px;
-
-    opacity: 1;
-    transform: rotate(0deg);
 }
 
 .header h1 {

@@ -57,7 +57,7 @@ export default function AvailableDays({ previousPage, nextPage, control }) {
                             return (
                                 <SelectableButton
                                     key={index}
-                                    label={day}
+                                    label={day.long}
                                     selected={selected}
                                     onClick={() => {
                                         if (selected) {

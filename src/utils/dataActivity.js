@@ -170,7 +170,7 @@ export function getHeartRate(data, day) {
 
         if (activity) {
             heartRates.push({
-                day: DAYS[i],
+                day: DAYS[i].short,
                 min: activity.heartRate.min,
                 max: activity.heartRate.max,
                 average: activity.heartRate.average
@@ -180,7 +180,7 @@ export function getHeartRate(data, day) {
             countAverage++;
         } else {
             heartRates.push({
-                day: DAYS[i],
+                day: DAYS[i].short,
                 min: null,
                 max: null,
                 average: null

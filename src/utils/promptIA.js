@@ -121,7 +121,7 @@ export function formatRequestTrainingPlan(target, startDate, endDate, availableD
     terminer au ${endDate}, soit ${numberOfWeeks} semaines calendaires.`;
 
     const slotsTrainingMessage = `Je suis disponibles sur les jours ${availableDays.map((day) => {
-        return ` ${day} (${DAYS[day]})`;
+        return ` ${day} (${DAYS[day].long})`;
     })
         .join(", ")
         } et je m'entraine sur le créneau ${timeSlot}.`;

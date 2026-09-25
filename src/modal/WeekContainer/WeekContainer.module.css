@@ -1,0 +1,36 @@
+.weekContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border-radius: 10px;
+    gap: 25px;
+    border: 1px solid var(--tertiary-color-10);
+    padding: 32px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.weekContainer button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    border: none;
+    background: none;
+    margin: none;
+    padding: none;
+    background-color: var(--primary-color-10);
+}
+
+.weekMain {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}

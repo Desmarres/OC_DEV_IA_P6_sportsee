@@ -1,0 +1,25 @@
+<svg 
+    width="13" 
+    height="13" 
+    viewBox="0 0 13 13" 
+    fill="none" 
+    xmlns="http://www.w3.org/2000/svg"
+>
+<line 
+    x1="0" 
+    y1="6.5" 
+    x2="13" 
+    y2="6.5" 
+    stroke="#0B23F4" 
+    stroke-width="0.627907"
+/>
+
+<line 
+    x1="6.5" 
+    y1="0" 
+    x2="6.5" 
+    y2="13" 
+    stroke="#0B23F4" 
+    stroke-width="0.627907"
+/>
+</svg>
