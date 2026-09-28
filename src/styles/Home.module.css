@@ -72,6 +72,10 @@
     gap: 8px;
 }
 
+.formInput input {
+    text-indent: 10px;
+}
+
 .formInput label {
     color: var(--tertiary-color-60);
 }
