@@ -1,4 +1,4 @@
-import { LISTE_TRAINING_OBJECTIF, MAX_LENGTH_PROMPT, MAX_MESSAGES } from "@/config/constants";
+import { DAYS, LISTE_TRAINING_OBJECTIF, MAX_LENGTH_PROMPT, MAX_MESSAGES } from "@/config/constants";
 import { isValidISODate, isValidTimeSlot } from "./date";
 
 /**
@@ -138,7 +138,7 @@ export const validateResponseIA = (response) => {
     }
 
     if (!Array.isArray(response.weeks)) {
-        return "Le liste des semaines n'est pas valide.";
+        return "La liste des semaines n'est pas valide.";
     }
 
     for (let i = 0; i < response.weeks.length; i++) {
@@ -255,14 +255,16 @@ export const validateResponseMatchesRequest = (request, response) => {
             const session = week.sessions[j];
 
             if (!request.availableDays.includes(session.dayNumber)) {
-                return "Le programme ne respecte pas les jours diponnibles envoyés";
+                return `Le programme planifie une séance le ${DAYS[session.dayNumber].long} alors que les jours disponibles sont : ${request.availableDays
+                    .map(day => DAYS[day].long)
+                    .join(", ")}`;
             }
 
             const hasDuration = session.duration !== null;
             const hasDistance = session.distance !== null;
 
             if (hasDuration === hasDistance) {
-                return "La session doit avoir soit une durée, soit une distance, mais pas les deux.";
+                return `La session doit avoir soit une durée, soit une distance, mais pas les deux (Durée : ${session.duration} et distance : ${session.distance}).`;
             }
         }
     }

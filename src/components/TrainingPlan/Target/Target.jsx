@@ -47,7 +47,7 @@ export default function Target({ previousPage, nextPage, control }) {
             <Controller
                 name="target"
                 control={control}
-                render={({ field }) => (
+                render={({ field, fieldState }) => (
                     <div className={styles.selectContainer}>
                         {
                             LISTE_TRAINING_OBJECTIF.map((target, index) => (
@@ -59,6 +59,9 @@ export default function Target({ previousPage, nextPage, control }) {
                                 />
                             ))
                         }
+                        {fieldState.error && (
+                            <p className={styles.error}>{fieldState.error.message}</p>
+                        )}
                     </div>
                 )}
             />

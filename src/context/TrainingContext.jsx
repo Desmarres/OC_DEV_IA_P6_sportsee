@@ -43,7 +43,11 @@ export function TrainingProvider({ children }) {
         setLastRequest(request);
         setIsOpenTraining(true);
 
-        return requestPlan(request);
+        try {
+            return await requestPlan(request);
+        } catch (error) {
+            return null;
+        }
     }, [requestPlan]);
 
     const regenerate = useCallback(async () => {
@@ -51,21 +55,60 @@ export function TrainingProvider({ children }) {
             return;
         }
 
-        return requestPlan(lastRequest);
+        try {
+            return await requestPlan(lastRequest);
+        } catch (error) {
+            return null;
+        }
     }, [lastRequest, requestPlan]);
+
+    const downloadPlan = async () => {
+        if (!plan || !lastRequest) return
+
+        const body = {
+            target: lastRequest.target,
+            startDate: lastRequest.startDate,
+            timeSlot: lastRequest.timeSlot,
+            weeks: plan.weeks
+        }
+
+        const response = await fetch("/api/training-plan/download-ics", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        })
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error);
+        }
+
+        const blob = await response.blob();
+
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `plan-entrainement-${new Date().toISOString().slice(0, 10)}.ics`;
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(url);
+
+    }
 
     const value = {
         isOpenTraining,
         toggleTraining,
-
         plan,
         loading,
         error,
-
         lastRequest,
-
         generatePlan,
         regenerate,
+        downloadPlan,
     };
 
     return (

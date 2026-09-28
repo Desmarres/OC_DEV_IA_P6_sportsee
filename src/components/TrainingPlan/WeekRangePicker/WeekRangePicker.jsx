@@ -39,7 +39,7 @@ export default function WeekRangePicker({ control }) {
                 start: null,
                 end: null,
             }}
-            render={({ field }) => {
+            render={({ field, fieldState }) => {
                 const { start, end } = field.value;
 
                 // Dates de référence
@@ -270,6 +270,9 @@ export default function WeekRangePicker({ control }) {
                                 <strong>{selectedWeeks}</strong>
                             </div>
                         </div>
+                        {fieldState.error && (
+                            <p className={styles.error}>{fieldState.error.message}</p>
+                        )}
                     </div>
                 );
             }}

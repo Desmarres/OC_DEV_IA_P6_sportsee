@@ -49,7 +49,7 @@ export default function AvailableDays({ previousPage, nextPage, control }) {
                 name="availableDays"
                 control={control}
                 defaultValue={[]}
-                render={({ field }) => (
+                render={({ field, fieldState }) => (
                     <div className={styles.selectContainer}>
                         {DAYS.map((day, index) => {
                             const selected = field.value.includes(index);
@@ -76,6 +76,9 @@ export default function AvailableDays({ previousPage, nextPage, control }) {
                                 />
                             );
                         })}
+                        {fieldState.error && (
+                            <p className={styles.error}>{fieldState.error.message}</p>
+                        )}
                     </div>
                 )}
             />

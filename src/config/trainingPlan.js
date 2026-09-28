@@ -19,8 +19,12 @@ Le plan d'entraînement ne peut pas commencer avant la date de début demandée 
 
 const rulesToFollow = [`Règles à respecter en toute circonstance :`,
     `1. Adapte le contenu du plan à l'objectif demandé, au niveau réel de l'utilisateur, aux contraintes fournies et aux directives spécifiques ci - dessous.`,
-    `2. Ne planifie des séances QUE sur les jours indiqués comme disponibles.
-Ne dépasse jamais le nombre de jours disponibles par semaine.`,
+    `2. Ne planifie des séances QUE sur les jours EXACTEMENT indiqués comme disponibles
+dans le message de l'utilisateur (identifiés par leur numéro). N'utilise JAMAIS
+un jour absent de cette liste, même s'il s'agit d'une habitude d'entraînement
+courante (par exemple une sortie longue le samedi) — avant de finaliser ta
+réponse, vérifie que chaque dayNumber utilisé figure bien dans la liste des
+jours disponibles fournie.`,
     `3. Chaque séance doit avoir soit une durée cible en minutes, soit une distance cible en kilomètres, jamais les deux.
 Si "duration" est renseigné, "distance" doit être null.
 Si "distance" est renseigné, "duration" doit être null.`,

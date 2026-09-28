@@ -19,7 +19,7 @@ import { useRouter } from "next/router";
  */
 export default function TrainingModal() {
 
-    const { plan, loading, error, toggleTraining, regenerate } = useTraining();
+    const { plan, loading, error, toggleTraining, regenerate, downloadPlan } = useTraining();
 
     const router = useRouter();
 
@@ -46,6 +46,12 @@ export default function TrainingModal() {
                     error ?
                         <ErrorMessage error={error} /> :
                         <div className={styles.trainingMain}>
+                            {plan?.adjustmentNote && (
+                                <>
+                                    <p className="body-large"> L&apos;objectif a été modifié : {plan.target}.</p>
+                                    <p className="body-small">{plan.adjustmentNote}</p>
+                                </>
+                            )}
                             {plan?.weeks?.map((week, index) => (
                                 <WeekContainer
                                     key={week.weekNumber}
@@ -56,9 +62,12 @@ export default function TrainingModal() {
                         </div>
                 }
                 <div className={styles.trainingFooter} >
-                    <BlueButton
-                        texte="Télécharger"
-                    />
+                    {!loading && !error && (
+                        <BlueButton
+                            texte="Télécharger"
+                            onClick={() => downloadPlan()}
+                        />
+                    )}
                     <BlueButton
                         texte="Regénérer le programme"
                         onClick={regenerate}

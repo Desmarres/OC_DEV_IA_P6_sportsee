@@ -257,3 +257,66 @@ export function getNumberOfWeeks(startDate, endDate) {
 
     return nbSemaine;
 };
+
+/**
+ * Calcule la date et l'heure de début d'une session d'entraînement
+ * à partir de la date de début du planning, de la semaine, du jour
+ * et du créneau horaire sélectionnés.
+ *
+ * @param {string} startDate - Date de début du planning au format `YYYY-MM-DD`.
+ * @param {number} weekNumber - Numéro de la semaine de la session.
+ * @param {number} dayNumber - Numéro du jour de la semaine.
+ * @param {string} timeSlot - Créneau horaire au format `HHhMM-HHhMM`.
+ *
+ * @returns {Array<number>} Tableau contenant l'année, le mois, le jour,
+ * l'heure et les minutes de début de la session.
+ */
+export function getIcsStart(startDate, weekNumber, dayNumber, timeSlot) {
+
+    const [year, month, day] = startDate.split('-').map(Number);
+
+    const date = new Date(year, month - 1, day);
+
+    date.setDate(
+        date.getDate() +
+        (weekNumber - 1) * 7 +
+        dayNumber
+    );
+
+    const startTime = timeSlot.split('-')[0];
+
+    const [hours, minutes = '00'] = startTime.split('h');
+
+    return [
+        date.getFullYear(),
+        date.getMonth() + 1,
+        date.getDate(),
+        Number(hours),
+        Number(minutes),
+    ];
+}
+
+/**
+ * Calcule la durée d'un créneau horaire en minutes.
+ * La fonction prend en compte les créneaux qui se prolongent après minuit.
+ *
+ * @param {string} timeSlot - Créneau horaire au format `HHhMM-HHhMM`.
+ *
+ * @returns {{hours: number, minutes: number}} Durée du créneau en heures et minutes.
+ */
+export function getDuration(timeSlot) {
+    const [start, end] = timeSlot.split('-');
+
+    const parseTime = (time) => {
+        const [hours, minutes = '00'] = time.split('h');
+        return Number(hours) * 60 + Number(minutes);
+    };
+
+    let duration = parseTime(end) - parseTime(start);
+
+    if (duration < 0) {
+        duration += 24 * 60;
+    }
+
+    return { minutes: duration };
+}

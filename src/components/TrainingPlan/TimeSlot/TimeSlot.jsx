@@ -51,7 +51,7 @@ export default function TimeSlot({ control, previousPage }) {
             <Controller
                 name="timeSlot"
                 control={control}
-                render={({ field }) => (
+                render={({ field, fieldState }) => (
                     <div className={styles.selectContainer}>
                         {
                             TIMESLOTS.map((timeSlot, index) => (
@@ -63,6 +63,9 @@ export default function TimeSlot({ control, previousPage }) {
                                 />
                             ))
                         }
+                        {fieldState.error && (
+                            <p className={styles.error}>{fieldState.error.message}</p>
+                        )}
                     </div>
                 )}
             />
