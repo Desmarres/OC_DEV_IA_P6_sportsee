@@ -1,33 +1,79 @@
-import { createContext, useContext, useState } from "react";
-
+import {
+    createContext,
+    useCallback,
+    useContext,
+    useState,
+} from "react";
+import useGenerateTrainingPlan from "../hooks/useGenerateTrainingPlan";
 
 const TrainingContext = createContext(null);
 
 /**
- * Fournit le contexte permettant de gérer l'ouverture et la fermeture
- * de l'interface de création du planning d'entraînement.
+ * Fournit le contexte permettant de gérer la création et l'affichage
+ * du planning d'entraînement personnalisé.
+ *
+ * Le provider gère l'ouverture de l'interface, le planning généré,
+ * son état de chargement et les éventuelles erreurs. Il conserve également
+ * la dernière demande afin de permettre la régénération du planning.
  *
  * @param {Object} props - Les propriétés du composant.
  * @param {React.ReactNode} props.children - Les composants enfants bénéficiant
  * du contexte de gestion du planning.
  *
- * @returns {JSX.Element} Le contexte contenant l'état d'ouverture du planning
- * et la fonction permettant de le basculer.
+ * @returns {JSX.Element} Le contexte contenant l'état du planning,
+ * les fonctions de génération et de régénération ainsi que les données
+ * associées à la dernière demande.
  */
 export function TrainingProvider({ children }) {
-
     const [isOpenTraining, setIsOpenTraining] = useState(false);
+    const [lastRequest, setLastRequest] = useState(null);
 
-    function toggleTraining() {
+    const {
+        plan,
+        loading,
+        error,
+        generatePlan: requestPlan,
+    } = useGenerateTrainingPlan();
+
+    const toggleTraining = useCallback(() => {
         setIsOpenTraining(prev => !prev);
-    }
+    }, []);
+
+    const generatePlan = useCallback(async (request) => {
+        setLastRequest(request);
+        setIsOpenTraining(true);
+
+        return requestPlan(request);
+    }, [requestPlan]);
+
+    const regenerate = useCallback(async () => {
+        if (!lastRequest) {
+            return;
+        }
+
+        return requestPlan(lastRequest);
+    }, [lastRequest, requestPlan]);
+
+    const value = {
+        isOpenTraining,
+        toggleTraining,
+
+        plan,
+        loading,
+        error,
+
+        lastRequest,
+
+        generatePlan,
+        regenerate,
+    };
 
     return (
-        <TrainingContext.Provider value={{ isOpenTraining, toggleTraining }}>
+        <TrainingContext.Provider value={value}>
             {children}
         </TrainingContext.Provider>
     );
-};
+}
 
 /**
  * Permet d'accéder au contexte de gestion du planning d'entraînement.

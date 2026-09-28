@@ -1,6 +1,8 @@
 import { Controller } from "react-hook-form";
 import {
+    addMonths,
     differenceInCalendarWeeks,
+    endOfMonth,
     endOfWeek,
     format,
     isWithinInterval,
@@ -93,6 +95,30 @@ export default function WeekRangePicker({ control }) {
 
                     return week.start <= currentWeekStart;
                 };
+
+                /**
+                 * Détermine le mois initial à afficher dans le calendrier.
+                 *
+                 * Si une date de début est définie, elle est utilisée comme référence.
+                 * Sinon, le mois suivant est affiché lorsque la date actuelle se situe
+                 * dans la dernière semaine du mois en cours.
+                 *
+                 * @returns {Date} Date correspondant au mois initial à afficher.
+                 */
+                const getInitialMonth = () => {
+
+                    if (start) return start;
+
+                    const lastWeekStart = startOfWeek(endOfMonth(today), {
+                        weekStartsOn: 1,
+                    });
+
+                    if (today >= lastWeekStart) {
+                        return addMonths(today, 1);
+                    }
+
+                    return today;
+                }
 
                 /**
                  * Gère la sélection d'une semaine dans le calendrier.
@@ -197,6 +223,7 @@ export default function WeekRangePicker({ control }) {
                             locale={fr}
                             weekStartsOn={1}
                             onDayClick={handleDayClick}
+                            defaultMonth={getInitialMonth()}
                             disabled={isWeekDisabled}
                             modifiers={modifiers}
                             modifiersClassNames={{

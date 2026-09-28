@@ -10,7 +10,7 @@ import ConversationAI from "@/components/Conteneur/ConversationAI/ConversationAI
 import GlobalDistance from "@/components/GlobalDistance/GlobalDistance";
 import LastPerformance from "@/components/Conteneur/LastPerformance/LastPerformance";
 import useUserInfoContext from "@/context/UserInfoContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CalendarAI from "@/components/TrainingPlan/CalendarAI/CalendarAI";
 import Target from "@/components/TrainingPlan/Target/Target";
 import AvailableDays from "@/components/TrainingPlan/AvailableDays/AvailableDays";
@@ -19,6 +19,7 @@ import { useForm } from "react-hook-form";
 import WeekRange from "@/components/TrainingPlan/WeekRange/WeekRange";
 import { format } from "date-fns";
 import useTraining from "@/context/TrainingContext";
+import { useRouter } from "next/router";
 
 /**
  * Affiche le tableau de bord principal de l'utilisateur authentifié.
@@ -30,7 +31,8 @@ import useTraining from "@/context/TrainingContext";
  *
  * Le formulaire guide l'utilisateur à travers plusieurs étapes afin de définir
  * son objectif, sa période d'entraînement, ses jours disponibles et son créneau
- * horaire. Les données sont ensuite préparées lors de la soumission du formulaire.
+ * horaire. La navigation entre les étapes est gérée via les paramètres de l'URL
+ * et le planning est généré à partir des données du formulaire lors de sa soumission.
  *
  * Les états de chargement et d'erreur liés aux informations utilisateur
  * sont pris en charge avant l'affichage du tableau de bord.
@@ -41,62 +43,122 @@ import useTraining from "@/context/TrainingContext";
 export default function Home() {
 
     const status = useRequireAuth();
-    const { toggleTraining } = useTraining();
+    const { generatePlan } = useTraining();
 
     const today = new Date();
     const { profile, statistics, loading, error } = useUserInfoContext();
 
-    const [calendarAIPage, setCalendarAIPage] = useState("default");
     const { handleSubmit, control } = useForm();
 
+    const router = useRouter();
+
+    const steps = [
+        "default",
+        "target",
+        "WeekRange",
+        "availability",
+        "timeSlot",
+    ];
+
+    const trainingPlanStep = router.query.trainingPlanStep;
+
+    const trainingPlanIndexPage =
+        typeof trainingPlanStep === "string" &&
+            steps.includes(trainingPlanStep)
+            ? trainingPlanStep
+            : "default";
+
+    const goToStep = (step) => {
+
+        if (!steps.includes(step)) {
+            return;
+        }
+
+        router.push(
+            `/Dashboard?trainingPlanStep=${step}#trainingForm`,
+            undefined,
+            {
+                shallow: true,
+            }
+        );
+    };
+
+    const nextPage = () => {
+
+        const currentIndex =
+            steps.indexOf(trainingPlanIndexPage);
+
+        const nextStep =
+            steps[currentIndex + 1];
+
+        if (nextStep) {
+            goToStep(nextStep);
+        }
+    };
+
+    const previousPage = () => {
+
+        const currentIndex =
+            steps.indexOf(trainingPlanIndexPage);
+
+        const previousStep =
+            steps[currentIndex - 1];
+
+        if (previousStep) {
+            goToStep(previousStep);
+        }
+    };
+
+    if (status !== AuthStatus.Authenticated) return null;
+
     const onSubmit = (data) => {
-        toggleTraining();
+
         const startDate = data.weekRange.start
             ? format(data.weekRange.start, "yyyy-MM-dd")
             : null
         const endDate = data.weekRange.end
             ? format(data.weekRange.end, "yyyy-MM-dd")
             : null
-        console.log("target : ", data.target);
-        console.log("startDate : ", startDate);
-        console.log("endDate : ", endDate);
-        console.log("availableDays : ", data.availableDays.sort());
-        console.log("timeSlot : ", data.timeSlot);
+        generatePlan({
+            target: data.target,
+            startDate: startDate,
+            endDate: endDate,
+            availableDays: data.availableDays.sort(),
+            timeSlot: data.timeSlot,
+        });
     }
 
-    if (status !== AuthStatus.Authenticated) return null;
-
-    const calendarPages = {
+    const trainingPlanPage = {
         default: (
             <CalendarAI
-                nextPage={() => setCalendarAIPage("target")}
+                nextPage={nextPage}
             />
         ),
         target: (
             <Target
                 control={control}
-                previousPage={() => setCalendarAIPage("default")}
-                nextPage={() => setCalendarAIPage("WeekRange")}
+                previousPage={previousPage}
+                nextPage={nextPage}
             />
         ),
         WeekRange: (
             <WeekRange
-                previousPage={() => setCalendarAIPage("target")}
-                nextPage={() => setCalendarAIPage("availability")}
                 control={control}
+                previousPage={previousPage}
+                nextPage={nextPage}
             />
         ),
         availability: (
             <AvailableDays
-                previousPage={() => setCalendarAIPage("WeekRange")}
-                nextPage={() => setCalendarAIPage("timeSlot")}
                 control={control}
+                previousPage={previousPage}
+                nextPage={nextPage}
             />
         ),
         timeSlot: (
             <TimeSlot
                 control={control}
-                previousPage={() => setCalendarAIPage("availability")}
+                previousPage={previousPage}
             />
         ),
     };
@@ -124,8 +186,8 @@ export default function Home() {
                             today={today}
                             goal={profile.weeklyGoal}
                         />
-                        <form className={styles.trainingForm} onSubmit={handleSubmit(onSubmit)}>
-                            {calendarPages[calendarAIPage]}
+                        <form id="trainingForm" className={styles.trainingForm} onSubmit={handleSubmit(onSubmit)}>
+                            {trainingPlanPage[trainingPlanIndexPage]}
                         </form>
                     </section>
                 </div>

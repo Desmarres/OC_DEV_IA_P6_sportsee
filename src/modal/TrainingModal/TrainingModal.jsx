@@ -2,8 +2,10 @@ import useTraining from "@/context/TrainingContext";
 import ClosedCross from "../ClosedCross/ClosedCross";
 import WeekContainer from "../WeekContainer/WeekContainer";
 import styles from "./TrainingModal.module.css";
-import data from "@/assets/exemple.json"
 import BlueButton from "@/components/BlueButton/BlueButton";
+import Loader from "@/components/Loader/Loader";
+import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
+import { useRouter } from "next/router";
 
 /**
  * Affiche la fenêtre modale présentant le planning d'entraînement généré.
@@ -17,10 +19,17 @@ import BlueButton from "@/components/BlueButton/BlueButton";
  */
 export default function TrainingModal() {
 
-    const { answer } = data;
-    const { toggleTraining } = useTraining();
+    const { plan, loading, error, toggleTraining, regenerate } = useTraining();
+
+    const router = useRouter();
+
+    const newPlan = () => {
+        toggleTraining();
+        router.push("/Dashboard?trainingPlanStep=target#trainingForm");
+    }
 
     return (
+
         <div className={styles.trainingModalContainer}>
             <div className={styles.trainingModalContent}>
                 <div className={styles.closedCrossContainer}>
@@ -32,25 +41,31 @@ export default function TrainingModal() {
                         Important pour définir un programme adapté
                     </p>
                 </div>
-
-                <div className={styles.trainingMain}>
-                    {answer.weeks.map((week, index) => (
-                        <WeekContainer
-                            key={index}
-                            week={week}
-                            isFirst={index === 0}
-                        />
-                    ))}
-                </div>
+                {loading ?
+                    <Loader /> :
+                    error ?
+                        <ErrorMessage error={error} /> :
+                        <div className={styles.trainingMain}>
+                            {plan?.weeks?.map((week, index) => (
+                                <WeekContainer
+                                    key={week.weekNumber}
+                                    week={week}
+                                    isFirst={index === 0}
+                                />
+                            ))}
+                        </div>
+                }
                 <div className={styles.trainingFooter} >
                     <BlueButton
                         texte="Télécharger"
                     />
                     <BlueButton
                         texte="Regénérer le programme"
+                        onClick={regenerate}
                     />
                     <BlueButton
                         texte="Nouveau programme"
+                        onClick={newPlan}
                     />
                 </div>
             </div>
