@@ -55,7 +55,6 @@ export default function useUserActivity(startWeek, endWeek) {
             })
             .catch(error => {
                 if (error.name === "AbortError") return;
-                console.log(error)
                 setResult({
                     key: requestKey,
                     data: [],
