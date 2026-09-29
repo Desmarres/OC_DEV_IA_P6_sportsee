@@ -36,11 +36,11 @@ export default function WeekContainer({ week, isFirst = false }) {
                 <button onClick={() => onChange()}>
                     {
                         isOpen ?
-                            <MoreIcon
+                            <LessIcon
                                 width={13}
                                 height={13}
                             /> :
-                            <LessIcon
+                            <MoreIcon
                                 width={13}
                                 height={13}
                             />
